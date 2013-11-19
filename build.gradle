@@ -28,7 +28,7 @@ targetCompatibility = 1.6
 modifyPom {
 	project {
 		name 'Gradle Android Maven plugin'
-		description 'Modification of the standard Maven plugin to be compatible with android-library projects (aar).'
+		description 'Modification to the standard Maven plugin to be compatible with android-library projects (aar).'
 		url 'https://github.com/dcendents/android-maven-plugin'
 		inceptionYear '2013'
 
