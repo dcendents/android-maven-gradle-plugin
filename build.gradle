@@ -5,7 +5,8 @@ buildscript {
     }
 
     dependencies {
-        classpath 'org.gradle.api.plugins:gradle-nexus-plugin:0.4'
+        classpath 'org.gradle.api.plugins:gradle-nexus-plugin:0.4',
+			'com.github.townsfolk:gradle-release:1.2'
     }
 }
 
@@ -13,6 +14,7 @@ apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'nexus'
 apply plugin: 'signing'
+apply plugin: 'release'
 
 repositories {
 	mavenCentral()
