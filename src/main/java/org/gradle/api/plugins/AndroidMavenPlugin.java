@@ -40,8 +40,6 @@ import javax.inject.Inject;
 /**
  * <p>A {@link org.gradle.api.Plugin} which allows project artifacts to be deployed to a Maven repository, or installed
  * to the local Maven cache.</p>
- *
- * @author Hans Dockter
  */
 public class AndroidMavenPlugin implements Plugin<ProjectInternal> {
     public static final int COMPILE_PRIORITY = 300;
@@ -85,16 +83,9 @@ public class AndroidMavenPlugin implements Plugin<ProjectInternal> {
             }
         });
         PluginContainer plugins = project.getPlugins();
-		
-		configureAndroidScopeMappings(project.getConfigurations(), pluginConvention.getConf2ScopeMappings());
-		
         plugins.withType(JavaPlugin.class, new Action<JavaPlugin>() {
             public void execute(JavaPlugin javaPlugin) {
                 configureJavaScopeMappings(project.getConfigurations(), pluginConvention.getConf2ScopeMappings());
-            }
-        });
-        plugins.withType(JavaBasePlugin.class, new Action<JavaBasePlugin>() {
-            public void execute(JavaBasePlugin javaPlugin) {
                 configureInstall(project);
             }
         });
@@ -110,11 +101,6 @@ public class AndroidMavenPlugin implements Plugin<ProjectInternal> {
         Convention convention = project.getConvention();
         convention.getPlugins().put("maven", mavenConvention);
         return mavenConvention;
-    }
-
-    private void configureAndroidScopeMappings(ConfigurationContainer configurations, Conf2ScopeMappingContainer mavenScopeMappings) {
-        mavenScopeMappings.addMapping(COMPILE_PRIORITY, configurations.getByName(JavaPlugin.COMPILE_CONFIGURATION_NAME),
-                Conf2ScopeMappingContainer.COMPILE);
     }
 
     private void configureJavaScopeMappings(ConfigurationContainer configurations, Conf2ScopeMappingContainer mavenScopeMappings) {
