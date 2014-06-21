@@ -144,3 +144,4 @@ public class AndroidMavenPlugin implements Plugin<ProjectInternal> {
         installUpload.setDescription("Installs the 'archives' artifacts into the local Maven repository.");
     }
 }
+
