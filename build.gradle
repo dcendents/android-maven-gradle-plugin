@@ -5,7 +5,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'org.gradle.api.plugins:gradle-nexus-plugin:0.4',
+        classpath 'org.gradle.api.plugins:gradle-nexus-plugin:0.7.1',
 			'com.github.townsfolk:gradle-release:1.2'
     }
 }
