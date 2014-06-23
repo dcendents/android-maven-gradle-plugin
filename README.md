@@ -18,7 +18,7 @@ buildscript {
 	}
 
 	dependencies {
-		classpath 'com.github.dcendents:android-maven-plugin:1.0'
+		classpath 'com.github.dcendents:android-maven-plugin:1.1'
 	}
 }
 
