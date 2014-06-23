@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/dcendents/android-maven-plugin.png)](https://travis-ci.org/dcendents/android-maven-plugin)
 Gradle Android Maven plugin
 ====================
 
