@@ -25,6 +25,13 @@ buildscript {
 apply plugin: 'android-library'
 apply plugin: 'android-maven'
 ```
+
+You can add next lines for define your project groupId, artifactId and version:
+```Groovy
+project.archivesBaseName = 'my_library'
+group = 'com.example'
+version = '1.0'
+```
 	
 License
 ====================
