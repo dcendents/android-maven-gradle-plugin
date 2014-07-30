@@ -4,4 +4,4 @@ android:
     - build-tools-19.1.0
     - android-19
 
-script: ./gradlew clean build
+script: ./gradlew clean build --info --stacktrace
