@@ -5,16 +5,15 @@ buildscript {
     }
 
     dependencies {
-        classpath 	'com.android.tools.build:gradle:0.11.2',
+        classpath 	'com.android.tools.build:gradle:0.14.3',
 					fileTree(dir: '../../../../libs', include: ['android-maven-plugin-*.jar'])
     }
 }
 
-apply plugin: 'android-library'
+apply plugin: 'com.android.library'
 apply plugin: 'android-maven'
 
 group = 'org.test'
-artifact = 'simple'
 version = '1.0'
 
 install {
@@ -27,6 +26,6 @@ install {
 }
 
 android {
-	compileSdkVersion "android-19"
-	buildToolsVersion "19.1.0"
+	compileSdkVersion 21
+	buildToolsVersion "21.1.1"
 }
