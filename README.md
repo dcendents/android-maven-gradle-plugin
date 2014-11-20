@@ -18,11 +18,11 @@ buildscript {
 	}
 
 	dependencies {
-		classpath 'com.github.dcendents:android-maven-plugin:1.1'
+		classpath 'com.github.dcendents:android-maven-plugin:1.2'
 	}
 }
 
-apply plugin: 'android-library'
+apply plugin: 'com.android.library'
 apply plugin: 'android-maven'
 ```
 	

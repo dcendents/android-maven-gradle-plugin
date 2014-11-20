@@ -46,6 +46,7 @@ import org.gradle.internal.Factory;
 import org.gradle.logging.LoggingManagerInternal;
 
 import javax.inject.Inject;
+import java.util.Collections;
 
 /**
  * <p>A {@link org.gradle.api.Plugin} which allows project artifacts to be deployed to a Maven repository, or installed
@@ -82,7 +83,7 @@ public class AndroidMavenPlugin implements Plugin<ProjectInternal> {
 
     public void apply(final ProjectInternal project) {
         this.project = project;
-        project.getPlugins().apply(BasePlugin.class);
+        project.apply(Collections.singletonMap("plugin", BasePlugin.class));
 
         DefaultMavenFactory mavenFactory = new DefaultMavenFactory();
         final MavenPluginConvention pluginConvention = addConventionObject(project, mavenFactory);
@@ -133,7 +134,9 @@ public class AndroidMavenPlugin implements Plugin<ProjectInternal> {
         configurationActionContainer.add(new Action<Project>() {
             public void execute(Project project) {
                 Upload uploadArchives = project.getTasks().withType(Upload.class).findByName(BasePlugin.UPLOAD_ARCHIVES_TASK_NAME);
-                if (uploadArchives == null) { return; }
+                if (uploadArchives == null) {
+                    return;
+                }
 
                 ConfigurationInternal configuration = (ConfigurationInternal) uploadArchives.getConfiguration();
                 ModuleInternal module = configuration.getModule();
