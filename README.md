@@ -26,11 +26,15 @@ apply plugin: 'android-library'
 apply plugin: 'android-maven'
 ```
 
-You can add next lines for define your project groupId, artifactId and version:
+You can set the maven groupId and version in the script build.gradle:
 ```Groovy
-project.archivesBaseName = 'my_library'
 group = 'com.example'
 version = '1.0'
+```
+	
+The artifactId is set in settings.gradle:
+```Groovy
+rootProject.name = 'artifact'
 ```
 	
 License
