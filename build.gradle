@@ -29,6 +29,13 @@ plugindev {
 	done() // do not omit this
 }
 
+ext {
+	// Set values in ~/.gradle/gradle.properties, set default values otherwise for build to work
+	bintrayUsername = project.bintrayUsername != null ? project.bintrayUsername : ""
+	bintrayApiKey = project.bintrayApiKey != null ? project.bintrayApiKey : ""
+	bintrayPassphrase = project.bintrayPassphrase != null ? project.bintrayPassphrase : ""
+}
+
 bintray {
 	user = "${bintrayUsername}"
 	key = "${bintrayApiKey}"
