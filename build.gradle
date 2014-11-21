@@ -1,19 +1,7 @@
-buildscript {
-    repositories {
-        jcenter()
-    }
 
-    dependencies {
-        classpath 'org.gradle.api.plugins:gradle-nexus-plugin:0.7.1',
-			'com.github.townsfolk:gradle-release:1.2'
-    }
+plugins {
+	id 'nu.studer.plugindev' version '1.0.3'
 }
-
-apply plugin: 'java-gradle-plugin'
-apply plugin: 'maven'
-apply plugin: 'nexus'
-apply plugin: 'signing'
-apply plugin: 'release'
 
 repositories {
 	mavenCentral()
@@ -26,31 +14,32 @@ dependencies {
 sourceCompatibility = 1.6
 targetCompatibility = 1.6
 
-modifyPom {
-	project {
-		name 'Gradle Android Maven plugin'
-		description 'Modification to the standard Maven plugin to be compatible with android-library projects (aar).'
-		url 'https://github.com/dcendents/android-maven-plugin'
-		inceptionYear '2013'
+plugindev {
+	pluginId = 'com.github.dcendents.android-maven'
+	pluginImplementationClass 'org.gradle.api.plugins.AndroidMavenPlugin'
+	pluginName 'Gradle Android Maven plugin'
+	pluginDescription 'Modification to the standard Maven plugin to be compatible with android-library projects (aar).'
+	pluginLicenses 'Apache-2.0'
+	pluginTags 'gradle', 'plugin', 'android', 'maven'
+	authorId 'dcendents'
+	authorName 'Daniel Beland'
+	authorEmail 'dcendents@gmail.com'
+	projectUrl 'https://github.com/dcendents/android-maven-plugin'
+	projectInceptionYear '2013'
+	done() // do not omit this
+}
 
-		scm {
-			url 'https://github.com/dcendents/android-maven-plugin'
-			connection 'scm:https://github.com/dcendents/android-maven-plugin.git'
-			developerConnection 'scm:git://github.com/dcendents/android-maven-plugin.git'
-		}
+bintray {
+	user = "${bintrayUsername}"
+	key = "${bintrayApiKey}"
 
-		licenses {
-			license {
-				name 'The Apache Software License, Version 2.0'
-				url 'http://www.apache.org/licenses/LICENSE-2.0'
-			}
-		}
-
-		developers {
-			developer {
-				id 'dcendents'
-				name 'Daniel Beland'
-				email 'dcendents@gmail.com'
+	dryRun = false
+	publish = true
+	pkg {
+		repo = 'gradle-plugins'
+		version {
+			gpg {
+				sign = true
 			}
 		}
 	}
