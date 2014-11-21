@@ -37,6 +37,18 @@ The artifactId is set in settings.gradle:
 rootProject.name = 'artifact'
 ```
 	
+Note on Releases
+====================
+
+The following table shows which version of the plugin should be used depending on the version of gradle you are currently using. Also it list the plugin name to use:
+
+| Plugin Version | Plugin Name | Gradle Version |
+| ------------- | ----------- | ----------- |
+| 1.0 | android-maven | 1.8 |
+| 1.1 | android-maven | 1.12 |
+| 1.2 | com.github.dcendents.android-maven | 2.2 |
+
+
 License
 ====================
 
