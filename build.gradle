@@ -17,7 +17,7 @@ targetCompatibility = 1.6
 plugindev {
 	pluginId = 'com.github.dcendents.android-maven'
 	pluginImplementationClass 'org.gradle.api.plugins.AndroidMavenPlugin'
-	pluginName 'Gradle Android Maven plugin'
+	pluginName 'Gradle Android Maven Plugin'
 	pluginDescription 'Modification to the standard Maven plugin to be compatible with android-library projects (aar).'
 	pluginLicenses 'Apache-2.0'
 	pluginTags 'gradle', 'plugin', 'android', 'maven'
@@ -37,9 +37,11 @@ bintray {
 	publish = true
 	pkg {
 		repo = 'gradle-plugins'
+		name = 'GradleAndroidMavenPlugin'
 		version {
 			gpg {
 				sign = true
+				passphrase = "${bintrayPassphrase}"
 			}
 		}
 	}
