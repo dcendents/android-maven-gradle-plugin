@@ -23,7 +23,7 @@ buildscript {
 }
 
 apply plugin: 'com.android.library'
-apply plugin: 'android-maven'
+apply plugin: 'com.github.dcendents.android-maven'
 ```
 
 You can set the maven groupId and version in the script build.gradle:

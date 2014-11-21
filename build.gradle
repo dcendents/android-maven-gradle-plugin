@@ -1,8 +1,3 @@
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.2'
-    distributionUrl = "https://services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
-}
-
 buildscript {
     repositories {
         jcenter()
@@ -14,7 +9,7 @@ buildscript {
     }
 }
 
-apply plugin: 'java'
+apply plugin: 'java-gradle-plugin'
 apply plugin: 'maven'
 apply plugin: 'nexus'
 apply plugin: 'signing'
@@ -26,8 +21,6 @@ repositories {
 }
 
 dependencies {
-	compile gradleApi()
-	
 	testCompile	'junit:junit:4.11'
 }
 sourceCompatibility = 1.6
@@ -64,3 +57,8 @@ modifyPom {
 }
 
 test.dependsOn jar
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.2'
+    distributionUrl = "https://services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
+}
