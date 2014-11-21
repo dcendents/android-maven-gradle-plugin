@@ -44,7 +44,7 @@ bintray {
 	publish = true
 	pkg {
 		repo = 'gradle-plugins'
-		name = 'GradleAndroidMavenPlugin'
+		name = 'com.github.dcendents:android-maven-plugin'
 		version {
 			gpg {
 				sign = true
