@@ -36,6 +36,8 @@ The artifactId is set in settings.gradle:
 ```Groovy
 rootProject.name = 'artifact'
 ```
+
+Note: for multi-projects build, please refer to issue #9: https://github.com/dcendents/android-maven-plugin/issues/9
 	
 Note on Releases
 ====================
