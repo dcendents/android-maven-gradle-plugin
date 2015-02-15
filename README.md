@@ -1,4 +1,7 @@
 [![Build Status](https://travis-ci.org/dcendents/android-maven-plugin.png)](https://travis-ci.org/dcendents/android-maven-plugin)
+
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-android--maven--plugin-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1520)
+
 Gradle Android Maven plugin
 ====================
 
