@@ -40,7 +40,15 @@ The artifactId is set in settings.gradle:
 rootProject.name = 'artifact'
 ```
 
-Note: for multi-projects build, please refer to issue #9: https://github.com/dcendents/android-maven-plugin/issues/9
+Note: 
+- For **multi-projects** build, please refer to issue #9: https://github.com/dcendents/android-maven-plugin/issues/9
+- For proper **exclusion** use both **group and module** notation:
+```Groovy
+	compile('com.group:lib-module:1.0') {
+	        exclude group: 'com.group-to-replace', module: 'module-to-replace'
+    }
+	compile 'com.group-to-replace:module-to-replace:new_version'
+```
 	
 Note on Releases
 ====================
