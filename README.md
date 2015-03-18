@@ -11,7 +11,7 @@ Modification to the standard Maven plugin to be compatible with android-library 
 Usage
 ====================
 
-To use the android-maven-plugin, just apply the android-maven plugin in your android-library project.
+To use the android-maven-plugin, just apply the plugin in your android-library project.
 Also add the plugin classpath dependency to the buildScript.
 
 ```Groovy
@@ -42,24 +42,29 @@ rootProject.name = 'artifact'
 
 Note: 
 - For **multi-projects** build, please refer to issue #9: https://github.com/dcendents/android-maven-plugin/issues/9
-- For proper **exclusion** use both **group and module** notation:
+- For proper **exclusion** in the generated maven pom, use both **group and module** notation:
 ```Groovy
 	compile('com.group:lib-module:1.0') {
-	        exclude group: 'com.group-to-replace', module: 'module-to-replace'
+	        exclude group: 'com.exclusion.group', module: 'module.name'
     }
-	compile 'com.group-to-replace:module-to-replace:new_version'
 ```
 	
+Documentation
+====================
+
+Please refer to the standard Maven plugin documentation: http://gradle.org/docs/current/userguide/maven_plugin.html
+
+
 Note on Releases
 ====================
 
-The following table shows which version of the plugin should be used depending on the version of gradle you are currently using. Also it list the plugin name to use:
+The following table shows the compatibility between the android-maven-plugin and gradle versions. It also lists the plugin name to use:
 
 | Plugin Version | Plugin Name | Gradle Version |
 | ------------- | ----------- | ----------- |
-| 1.0 | android-maven | 1.8 |
-| 1.1 | android-maven | 1.12 |
-| 1.2 | com.github.dcendents.android-maven | 2.2 |
+| 1.0 | android-maven | 1.8+ |
+| 1.1 | android-maven | 1.12+ |
+| 1.2 | com.github.dcendents.android-maven | 2.2+ |
 
 
 License
