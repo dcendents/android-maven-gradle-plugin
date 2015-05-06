@@ -11,6 +11,10 @@ buildscript {
 	}
 }
 
+plugins {
+	id "com.gradle.plugin-publish" version "0.9.0"
+}
+
 apply plugin: "nu.studer.plugindev"
 
 repositories {
@@ -34,7 +38,7 @@ plugindev {
 	authorId 'dcendents'
 	authorName 'Daniel Beland'
 	authorEmail 'dcendents@gmail.com'
-	projectUrl 'https://github.com/dcendents/android-maven-plugin'
+	projectUrl 'https://github.com/dcendents/android-maven-gradle-plugin'
 	projectInceptionYear '2013'
 	done() // do not omit this
 }
@@ -61,6 +65,28 @@ bintray {
 				passphrase = "${bintrayPassphrase}"
 			}
 		}
+	}
+}
+
+pluginBundle {
+	website = 'https://github.com/dcendents/android-maven-gradle-plugin'
+	vcsUrl = 'https://github.com/dcendents/android-maven-gradle-plugin'
+
+	description = 'Modification to the standard Maven plugin to be compatible with android-library projects (aar).'
+
+	plugins {
+		androidMavenPlugin {
+			id = 'com.github.dcendents.android-maven'
+			displayName = 'Gradle Android Maven plugin'
+			tags = ['maven', 'android']
+			version = version
+		}
+	}
+
+	mavenCoordinates {
+		groupId = group
+		artifactId = theName
+		version = version
 	}
 }
 
