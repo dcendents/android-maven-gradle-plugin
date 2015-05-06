@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/dcendents/android-maven-plugin.png)](https://travis-ci.org/dcendents/android-maven-plugin)
+[![Build Status](https://travis-ci.org/dcendents/android-maven-gradle-plugin.png)](https://travis-ci.org/dcendents/android-maven-gradle-plugin)
 
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-android--maven--plugin-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1520)
 
@@ -11,7 +11,7 @@ Modification to the standard Maven plugin to be compatible with android-library 
 Usage
 ====================
 
-To use the android-maven-plugin, just apply the plugin in your android-library project.
+To use the android-maven-gradle-plugin, just apply the plugin in your android-library project.
 Also add the plugin classpath dependency to the buildScript.
 
 ```Groovy
@@ -21,7 +21,7 @@ buildscript {
 	}
 
 	dependencies {
-		classpath 'com.github.dcendents:android-maven-plugin:1.2'
+		classpath 'com.github.dcendents:android-maven-gradle-plugin:1.3'
 	}
 }
 
@@ -41,7 +41,7 @@ rootProject.name = 'artifact'
 ```
 
 Note: 
-- For **multi-projects** build, please refer to issue #9: https://github.com/dcendents/android-maven-plugin/issues/9
+- For **multi-projects** build, please refer to issue #9: https://github.com/dcendents/android-maven-gradle-plugin/issues/9
 - For proper **exclusion** in the generated maven pom, use both **group and module** notation:
 ```Groovy
 	compile('com.group:lib-module:1.0') {
@@ -58,13 +58,14 @@ Please refer to the standard Maven plugin documentation: http://gradle.org/docs/
 Note on Releases
 ====================
 
-The following table shows the compatibility between the android-maven-plugin and gradle versions. It also lists the plugin name to use:
+The following table shows the compatibility between the android-maven-gradle-plugin and gradle versions. It also lists the plugin name to use:
 
 | Plugin Version | Plugin Name | Gradle Version |
 | ------------- | ----------- | ----------- |
 | 1.0 | android-maven | 1.8+ |
 | 1.1 | android-maven | 1.12+ |
 | 1.2 | com.github.dcendents.android-maven | 2.2+ |
+| 1.3 | com.github.dcendents.android-maven | 2.4+ |
 
 
 License
