@@ -1,20 +1,6 @@
 
-buildscript {
-    repositories {
-        jcenter()
-    }
-
-    dependencies {
-        classpath 'org.gradle.api.plugins:gradle-nexus-plugin:0.4',
-			'com.github.townsfolk:gradle-release:1.2'
-    }
-}
-
 apply plugin: 'java'
 apply plugin: 'maven'
-apply plugin: 'nexus'
-apply plugin: 'signing'
-apply plugin: 'release'
 
 repositories {
 	mavenCentral()
@@ -27,32 +13,7 @@ dependencies {
 sourceCompatibility = 1.6
 targetCompatibility = 1.6
 
-modifyPom {
-	project {
-		name 'Gradle Android Maven plugin'
-		description 'Modification to the standard Maven plugin to be compatible with android-library projects (aar).'
-		url 'https://github.com/dcendents/android-maven-plugin'
-		inceptionYear '2013'
-
-		scm {
-			url 'https://github.com/dcendents/android-maven-plugin'
-			connection 'scm:https://github.com/dcendents/android-maven-plugin.git'
-			developerConnection 'scm:git://github.com/dcendents/android-maven-plugin.git'
-		}
-
-		licenses {
-			license {
-				name 'The Apache Software License, Version 2.0'
-				url 'http://www.apache.org/licenses/LICENSE-2.0'
-			}
-		}
-
-		developers {
-			developer {
-				id 'dcendents'
-				name 'Daniel Beland'
-				email 'dcendents@gmail.com'
-			}
-		}
-	}
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.4'
+    distributionUrl = "https://services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
 }
