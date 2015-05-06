@@ -5,8 +5,8 @@ buildscript {
     }
 
     dependencies {
-        classpath 	'com.android.tools.build:gradle:0.14.4',
-					fileTree(dir: '../../../../libs', include: ['android-maven-plugin-*.jar'])
+        classpath 	'com.android.tools.build:gradle:1.2.2',
+					fileTree(dir: '../../../../libs', include: ['android-maven-gradle-plugin-*.jar'])
     }
 }
 
@@ -27,5 +27,5 @@ install {
 
 android {
 	compileSdkVersion "android-21"
-	buildToolsVersion "21.1.1"
+	buildToolsVersion "22.0.1"
 }
