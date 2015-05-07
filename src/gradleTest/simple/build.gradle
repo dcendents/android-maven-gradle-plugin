@@ -1,12 +1,7 @@
 
 buildscript {
-    repositories {
-        mavenCentral()
-    }
-
     dependencies {
-        classpath 	'com.android.tools.build:gradle:1.2.2',
-					fileTree(dir: '../../../../libs', include: ['android-maven-gradle-plugin-*.jar'])
+        classpath 	fileTree(dir: "${project.rootProject.projectDir}/../../repo", include: '*.jar') 
     }
 }
 
@@ -28,4 +23,8 @@ install {
 android {
 	compileSdkVersion "android-21"
 	buildToolsVersion "22.0.1"
+}
+
+task runGradleTest {
+	dependsOn install
 }
