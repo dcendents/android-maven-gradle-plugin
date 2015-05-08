@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/dcendents/android-maven-gradle-plugin.svg?branch=master)](https://travis-ci.org/dcendents/android-maven-gradle-plugin) 
+[![Build Status](https://travis-ci.org/dcendents/android-maven-gradle-plugin.svg?branch=codecov)](https://travis-ci.org/dcendents/android-maven-gradle-plugin) 
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-android--maven--plugin-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1520) 
 [ ![Download](https://api.bintray.com/packages/dcendents/gradle-plugins/com.github.dcendents%3Aandroid-maven-gradle-plugin/images/download.svg) ](https://bintray.com/dcendents/gradle-plugins/com.github.dcendents%3Aandroid-maven-gradle-plugin/_latestVersion) 
 [![Stories in Ready](https://badge.waffle.io/dcendents/android-maven-gradle-plugin.png?label=ready&title=Ready)](https://waffle.io/dcendents/android-maven-gradle-plugin) 

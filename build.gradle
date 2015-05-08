@@ -17,6 +17,7 @@ plugins {
 }
 
 apply plugin: "nu.studer.plugindev"
+apply plugin: "jacoco"
 
 repositories {
 	mavenCentral()
@@ -118,6 +119,21 @@ gradleLocations {
 
 gradleTest.dependsOn jar
 test.dependsOn gradleTest
+
+jacoco {
+	toolVersion = "0.7.4.201502262128"
+}
+
+jacocoTestReport {
+	reports {
+		xml.enabled true
+		html.enabled true
+		html.destination "${buildDir}/jacocoHtml"
+	}
+}
+
+jacocoTestReport.dependsOn test
+check.dependsOn jacocoTestReport
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.4'
