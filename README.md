@@ -1,7 +1,8 @@
-[![Build Status](https://travis-ci.org/dcendents/android-maven-gradle-plugin.svg?branch=codecov)](https://travis-ci.org/dcendents/android-maven-gradle-plugin) 
-[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-android--maven--plugin-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1520) 
-[ ![Download](https://api.bintray.com/packages/dcendents/gradle-plugins/com.github.dcendents%3Aandroid-maven-gradle-plugin/images/download.svg) ](https://bintray.com/dcendents/gradle-plugins/com.github.dcendents%3Aandroid-maven-gradle-plugin/_latestVersion) 
+[![GitHub license](https://img.shields.io/github/license/dcendents/android-maven-gradle-plugin.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
+[![Build Status](https://travis-ci.org/dcendents/android-maven-gradle-plugin.svg?branch=master)](https://travis-ci.org/dcendents/android-maven-gradle-plugin) 
 [![Stories in Ready](https://badge.waffle.io/dcendents/android-maven-gradle-plugin.png?label=ready&title=Ready)](https://waffle.io/dcendents/android-maven-gradle-plugin) 
+[![codecov.io](http://codecov.io/github/dcendents/android-maven-gradle-plugin/coverage.svg?branch=master)](http://codecov.io/github/dcendents/android-maven-gradle-plugin?branch=master)
+[![Maven Central](https://img.shields.io/maven-central/v/com.github.dcendents/android-maven-gradle-plugin.svg)](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22android-maven-gradle-plugin%22)
 
 Gradle Android Maven plugin
 ====================
