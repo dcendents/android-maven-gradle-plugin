@@ -24,9 +24,23 @@ repositories {
 	mavenLocal()
 }
 
+sourceSets {
+	integTest {
+		compileClasspath += main.output + test.output
+		runtimeClasspath += main.output + test.output
+	}
+}
+
+configurations {
+	integTestCompile.extendsFrom testCompile
+	integTestRuntime.extendsFrom testRuntime
+}
+
 dependencies {
 	testCompile	'junit:junit:4.11'
+	gradleTest 'com.android.tools.build:gradle:1.2.2'
 }
+
 sourceCompatibility = 1.6
 targetCompatibility = 1.6
 
@@ -96,16 +110,18 @@ ext {
 	gradleVersions = '2.4'
 }
 
-test {
+task integTest(type: Test) {
 	systemProperty 'gradle.versions', gradleVersions
+	testClassesDir = sourceSets.integTest.output.classesDir
+	classpath = sourceSets.integTest.runtimeClasspath
+	reports {
+		junitXml.destination = "$buildDir/integration-test-results"
+		reports.html.destination = "$buildDir/reports/integrationTests"
+	}
 }
 
 gradleTest {
 	versions gradleVersions.split(',')
-}
-
-dependencies {
-	gradleTest 'com.android.tools.build:gradle:1.2.2'
 }
 
 gradleLocations {
@@ -118,7 +134,8 @@ gradleLocations {
 }
 
 gradleTest.dependsOn jar
-test.dependsOn gradleTest
+integTest.dependsOn gradleTest
+check.dependsOn integTest
 
 jacoco {
 	toolVersion = "0.7.4.201502262128"
