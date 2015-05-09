@@ -105,8 +105,28 @@ public class AndroidMavenPlugin implements Plugin<ProjectInternal> {
 
         PluginContainer plugins = project.getPlugins();
         
-        configureAndroidScopeMappings(project.getConfigurations(), pluginConvention.getConf2ScopeMappings());
-        
+		try {
+			Class appPluginClass = Class.forName("com.android.build.gradle.AppPlugin");
+			Class libraryPluginClass = Class.forName("com.android.build.gradle.LibraryPlugin");
+			Class testPluginClass = Class.forName("com.android.build.gradle.TestPlugin");
+			plugins.withType(appPluginClass, new Action<Plugin>() {
+				public void execute(Plugin appPlugin) {
+					configureAndroidScopeMappings(project.getConfigurations(), pluginConvention.getConf2ScopeMappings());
+				}
+			});
+			plugins.withType(libraryPluginClass, new Action<Plugin>() {
+				public void execute(Plugin libraryPlugin) {
+					configureAndroidScopeMappings(project.getConfigurations(), pluginConvention.getConf2ScopeMappings());
+				}
+			});
+			plugins.withType(testPluginClass, new Action<Plugin>() {
+				public void execute(Plugin testPlugin) {
+					configureAndroidScopeMappings(project.getConfigurations(), pluginConvention.getConf2ScopeMappings());
+				}
+			});
+		}
+		catch( ClassNotFoundException ex ) { }
+		
         plugins.withType(JavaPlugin.class, new Action<JavaPlugin>() {
             public void execute(JavaPlugin javaPlugin) {
                 configureJavaScopeMappings(project.getConfigurations(), pluginConvention.getConf2ScopeMappings());

@@ -37,8 +37,9 @@ configurations {
 }
 
 dependencies {
-	testCompile	'junit:junit:4.11'
-	gradleTest 'com.android.tools.build:gradle:1.2.2'
+	testCompile	'junit:junit:4.12',
+				'org.hamcrest:hamcrest-all:1.3'
+	gradleTest 'com.android.tools.build:gradle:1.2.3'
 }
 
 sourceCompatibility = 1.6
@@ -149,6 +150,7 @@ jacocoTestReport {
 	}
 }
 
+jar.dependsOn test
 jacocoTestReport.dependsOn test
 check.dependsOn jacocoTestReport
 
