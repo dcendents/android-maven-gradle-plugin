@@ -108,7 +108,7 @@ pluginBundle {
 }
 
 ext {
-	gradleVersions = '2.4'
+	gradleVersions = '2.4,2.5'
 }
 
 task integTest(type: Test) {
@@ -155,6 +155,6 @@ jacocoTestReport.dependsOn test
 check.dependsOn jacocoTestReport
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.4'
+    gradleVersion = '2.5'
     distributionUrl = "https://services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
 }

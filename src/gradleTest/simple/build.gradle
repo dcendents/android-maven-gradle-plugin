@@ -21,7 +21,7 @@ install {
 }
 
 android {
-	compileSdkVersion "android-21"
+	compileSdkVersion "android-22"
 	buildToolsVersion "22.0.1"
 }
 
