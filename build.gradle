@@ -13,7 +13,7 @@ buildscript {
 
 plugins {
 	id "com.gradle.plugin-publish" version "0.9.0"
-	id "org.ysb33r.gradletest" version "0.5.3"
+	id "org.ysb33r.gradletest" version "0.5.4"
 }
 
 apply plugin: "nu.studer.plugindev"
