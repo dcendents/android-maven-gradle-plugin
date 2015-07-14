@@ -8,5 +8,12 @@ android:
 
 script: ./gradlew clean build --info --stacktrace
 
+sudo: false
+
+cache:
+  directories:
+  - $HOME/.gradle
+  - $HOME/.m2
+
 after_success:
   - bash <(curl -s https://codecov.io/bash)
