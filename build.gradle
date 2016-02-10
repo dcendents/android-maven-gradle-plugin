@@ -97,7 +97,7 @@ pluginBundle {
 }
 
 ext {
-	gradleVersions = '2.4,2.5,2.6,2.7,2.8,2.9,2.10'
+	gradleVersions = '2.4,2.5,2.6,2.7,2.8,2.9,2.10,2.11'
 }
 
 task integTest(type: Test) {
@@ -144,6 +144,6 @@ jacocoTestReport.dependsOn test
 check.dependsOn jacocoTestReport
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.10'
+    gradleVersion = '2.11'
     distributionUrl = "https://services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
 }
