@@ -42,7 +42,7 @@ public class AndroidMavenPluginTest {
 
         assertThat(project.getConvention().getPlugin(MavenPluginConvention.class), notNullValue());
     }
-    
+
     @org.junit.Test
     public void defaultConventionValues() {
         project.getPluginManager().apply(AndroidMavenPlugin.class);
@@ -67,7 +67,7 @@ public class AndroidMavenPluginTest {
         assertThat(dependencies, equalTo((Set) toSet(project.getTasks().getByName(WarPlugin.WAR_TASK_NAME))));
     }
 
-    private void assertHasConfigurationAndMapping(Project project, String configurationName, String scope, int priority) {
+    private static void assertHasConfigurationAndMapping(final Project project, final String configurationName, final String scope, final int priority) {
         Conf2ScopeMappingContainer scopeMappingContainer = project.getConvention().getPlugin(MavenPluginConvention.class).getConf2ScopeMappings();
         ConfigurationContainer configurationContainer = project.getConfigurations();
         Conf2ScopeMapping mapping = scopeMappingContainer.getMappings().get(configurationContainer.getByName(configurationName));

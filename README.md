@@ -23,7 +23,7 @@ buildscript {
 	}
 
 	dependencies {
-		classpath 'com.github.dcendents:android-maven-gradle-plugin:1.3'
+		classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
 	}
 }
 
@@ -76,6 +76,7 @@ The following table shows the compatibility between the android-maven-gradle-plu
 | 1.1 | android-maven | com.github.dcendents:android-maven-plugin:1.1 | 1.12+ |
 | 1.2 | com.github.dcendents.android-maven | com.github.dcendents:android-maven-plugin:1.2 | 2.2+ |
 | 1.3 | com.github.dcendents.android-maven | com.github.dcendents:android-maven-gradle-plugin:1.3 | 2.4+ |
+| 2.0 | com.github.dcendents.android-maven | com.github.dcendents:android-maven-gradle-plugin:2.0 | 2.14+ |
 
 
 Build Metrics

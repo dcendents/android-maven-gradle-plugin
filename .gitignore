@@ -1,6 +1,9 @@
 /build
 /.gradle
+/.idea
 .classpath
 .project
 .settings
 bin
+local.properties
+*.iml
