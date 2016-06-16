@@ -44,7 +44,7 @@ import org.gradle.api.publication.maven.internal.MavenFactory;
 import org.gradle.api.tasks.Upload;
 import org.gradle.configuration.project.ProjectConfigurationActionContainer;
 import org.gradle.internal.Factory;
-import org.gradle.logging.LoggingManagerInternal;
+import org.gradle.internal.logging.LoggingManagerInternal;
 
 import javax.inject.Inject;
 
@@ -73,9 +73,9 @@ public class AndroidMavenPlugin implements Plugin<ProjectInternal> {
     private Project project;
 
     @Inject
-    public AndroidMavenPlugin(Factory<LoggingManagerInternal> loggingManagerFactory, FileResolver fileResolver,
-                       ProjectPublicationRegistry publicationRegistry, ProjectConfigurationActionContainer configurationActionContainer,
-                       MavenSettingsProvider mavenSettingsProvider, LocalMavenRepositoryLocator mavenRepositoryLocator) {
+    public AndroidMavenPlugin(final Factory<LoggingManagerInternal> loggingManagerFactory, final FileResolver fileResolver,
+                              final ProjectPublicationRegistry publicationRegistry, final ProjectConfigurationActionContainer configurationActionContainer,
+                              final MavenSettingsProvider mavenSettingsProvider, final LocalMavenRepositoryLocator mavenRepositoryLocator) {
         this.loggingManagerFactory = loggingManagerFactory;
         this.fileResolver = fileResolver;
         this.publicationRegistry = publicationRegistry;
@@ -104,41 +104,41 @@ public class AndroidMavenPlugin implements Plugin<ProjectInternal> {
         configureUploadArchivesTask();
 
         PluginContainer plugins = project.getPlugins();
-        
+
 		try {
 			Class appPluginClass = Class.forName("com.android.build.gradle.AppPlugin");
 			Class libraryPluginClass = Class.forName("com.android.build.gradle.LibraryPlugin");
 			Class testPluginClass = Class.forName("com.android.build.gradle.TestPlugin");
 			plugins.withType(appPluginClass, new Action<Plugin>() {
-				public void execute(Plugin appPlugin) {
+				public void execute(final Plugin appPlugin) {
 					configureAndroidScopeMappings(project.getConfigurations(), pluginConvention.getConf2ScopeMappings());
 				}
 			});
 			plugins.withType(libraryPluginClass, new Action<Plugin>() {
-				public void execute(Plugin libraryPlugin) {
+				public void execute(final Plugin libraryPlugin) {
 					configureAndroidScopeMappings(project.getConfigurations(), pluginConvention.getConf2ScopeMappings());
 				}
 			});
 			plugins.withType(testPluginClass, new Action<Plugin>() {
-				public void execute(Plugin testPlugin) {
+				public void execute(final Plugin testPlugin) {
 					configureAndroidScopeMappings(project.getConfigurations(), pluginConvention.getConf2ScopeMappings());
 				}
 			});
 		}
 		catch( ClassNotFoundException ex ) { }
-		
+
         plugins.withType(JavaPlugin.class, new Action<JavaPlugin>() {
-            public void execute(JavaPlugin javaPlugin) {
+            public void execute(final JavaPlugin javaPlugin) {
                 configureJavaScopeMappings(project.getConfigurations(), pluginConvention.getConf2ScopeMappings());
             }
         });
         plugins.withType(JavaBasePlugin.class, new Action<JavaBasePlugin>() {
-            public void execute(JavaBasePlugin javaPlugin) {
+            public void execute(final JavaBasePlugin javaPlugin) {
                 configureInstall(project);
             }
         });
         plugins.withType(WarPlugin.class, new Action<WarPlugin>() {
-            public void execute(WarPlugin warPlugin) {
+            public void execute(final WarPlugin warPlugin) {
                 configureWarScopeMappings(project.getConfigurations(), pluginConvention.getConf2ScopeMappings());
             }
         });
@@ -146,7 +146,7 @@ public class AndroidMavenPlugin implements Plugin<ProjectInternal> {
 
     private void configureUploadTasks(final DefaultDeployerFactory deployerFactory) {
         project.getTasks().withType(Upload.class, new Action<Upload>() {
-            public void execute(Upload upload) {
+            public void execute(final Upload upload) {
                 RepositoryHandler repositories = upload.getRepositories();
                 DefaultRepositoryHandler handler = (DefaultRepositoryHandler) repositories;
                 DefaultMavenRepositoryHandlerConvention repositoryConvention = new DefaultMavenRepositoryHandlerConvention(handler, deployerFactory);
@@ -157,7 +157,7 @@ public class AndroidMavenPlugin implements Plugin<ProjectInternal> {
 
     private void configureUploadArchivesTask() {
         configurationActionContainer.add(new Action<Project>() {
-            public void execute(Project project) {
+            public void execute(final Project project) {
                 Upload uploadArchives = project.getTasks().withType(Upload.class).findByName(BasePlugin.UPLOAD_ARCHIVES_TASK_NAME);
                 if (uploadArchives == null) {
                     return;
@@ -178,19 +178,19 @@ public class AndroidMavenPlugin implements Plugin<ProjectInternal> {
         });
     }
 
-    private MavenPluginConvention addConventionObject(ProjectInternal project, MavenFactory mavenFactory) {
+    private static MavenPluginConvention addConventionObject(final ProjectInternal project, final MavenFactory mavenFactory) {
         MavenPluginConvention mavenConvention = new MavenPluginConvention(project, mavenFactory);
         Convention convention = project.getConvention();
         convention.getPlugins().put("maven", mavenConvention);
         return mavenConvention;
     }
 
-    private void configureAndroidScopeMappings(ConfigurationContainer configurations, Conf2ScopeMappingContainer mavenScopeMappings) {
+    private static void configureAndroidScopeMappings(final ConfigurationContainer configurations, final Conf2ScopeMappingContainer mavenScopeMappings) {
         mavenScopeMappings.addMapping(COMPILE_PRIORITY, configurations.getByName(JavaPlugin.COMPILE_CONFIGURATION_NAME),
                 Conf2ScopeMappingContainer.COMPILE);
     }
 
-    private void configureJavaScopeMappings(ConfigurationContainer configurations, Conf2ScopeMappingContainer mavenScopeMappings) {
+    private static void configureJavaScopeMappings(final ConfigurationContainer configurations, final Conf2ScopeMappingContainer mavenScopeMappings) {
         mavenScopeMappings.addMapping(COMPILE_PRIORITY, configurations.getByName(JavaPlugin.COMPILE_CONFIGURATION_NAME),
                 Conf2ScopeMappingContainer.COMPILE);
         mavenScopeMappings.addMapping(RUNTIME_PRIORITY, configurations.getByName(JavaPlugin.RUNTIME_CONFIGURATION_NAME),
@@ -201,14 +201,14 @@ public class AndroidMavenPlugin implements Plugin<ProjectInternal> {
                 Conf2ScopeMappingContainer.TEST);
     }
 
-    private void configureWarScopeMappings(ConfigurationContainer configurations, Conf2ScopeMappingContainer mavenScopeMappings) {
+    private static void configureWarScopeMappings(final ConfigurationContainer configurations, final Conf2ScopeMappingContainer mavenScopeMappings) {
         mavenScopeMappings.addMapping(PROVIDED_COMPILE_PRIORITY, configurations.getByName(WarPlugin.PROVIDED_COMPILE_CONFIGURATION_NAME),
                 Conf2ScopeMappingContainer.PROVIDED);
         mavenScopeMappings.addMapping(PROVIDED_RUNTIME_PRIORITY, configurations.getByName(WarPlugin.PROVIDED_RUNTIME_CONFIGURATION_NAME),
                 Conf2ScopeMappingContainer.PROVIDED);
     }
 
-    private void configureInstall(Project project) {
+    private static void configureInstall(final Project project) {
         Upload installUpload = project.getTasks().create(INSTALL_TASK_NAME, Upload.class);
         Configuration configuration = project.getConfigurations().getByName(Dependency.ARCHIVES_CONFIGURATION);
         installUpload.setConfiguration(configuration);

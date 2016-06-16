@@ -1,7 +1,7 @@
 
 buildscript {
     dependencies {
-        classpath 	fileTree(dir: "${project.rootProject.projectDir}/../../repo", include: '*.jar') 
+        classpath 	fileTree(dir: "${project.rootProject.projectDir}/../../repo", include: '*.jar')
     }
 }
 
