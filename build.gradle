@@ -106,7 +106,7 @@ bintray {
 	publish = true
 	pkg {
 		repo = 'gradle-plugins'
-		name = 'com.github.dcendents:android-maven-plugin'
+		name = 'com.github.dcendents:android-maven-gradle-plugin'
 		version {
 			gpg {
 				sign = true
