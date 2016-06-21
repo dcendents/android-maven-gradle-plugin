@@ -6,6 +6,9 @@ android:
   licenses:
     - 'android.*'
 
+jdk:
+  - oraclejdk8
+
 script: ./gradlew clean build --info --stacktrace
 
 sudo: false
