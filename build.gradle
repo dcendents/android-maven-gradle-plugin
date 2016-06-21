@@ -9,6 +9,48 @@ repositories {
 
 dependencies {
 	compile gradleApi()
+	
+	// from gradle/gradle/dependencies.gradle
+	compile dependencies.module("org.apache.maven:maven-core:3.0.4") {
+		dependency "org.apache.maven:maven-settings:3.0.4@jar"
+		dependency "org.apache.maven:maven-settings-builder:3.0.4@jar"
+
+		//plexus:
+		dependency "org.codehaus.plexus:plexus-utils:2.0.6@jar"
+		dependency "org.codehaus.plexus:plexus-interpolation:1.14@jar"
+		dependency "org.codehaus.plexus:plexus-component-annotations:1.5.5@jar"
+		dependency "org.codehaus.plexus:plexus-container-default:1.5.5@jar"
+		dependency "org.codehaus.plexus:plexus-classworlds:2.4@jar"
+
+		//sonatype plexus
+		dependency "org.sonatype.plexus:plexus-cipher:1.7@jar"
+		dependency "org.sonatype.plexus:plexus-sec-dispatcher:1.3@jar"
+
+		//core:
+		dependency "org.apache.maven:maven-core:3.0.4@jar"
+		dependency "org.apache.maven:maven-compat:3.0.4@jar"
+		dependency "org.apache.maven:maven-model-builder:3.0.4@jar"
+		dependency "org.apache.maven:maven-model:3.0.4@jar"
+
+		//somewhat core:
+		dependency "org.apache.maven:maven-artifact:3.0.4@jar"
+		dependency "org.apache.maven:maven-repository-metadata:3.0.4@jar"
+		dependency "org.apache.maven:maven-plugin-api:3.0.4@jar"
+		dependency "org.apache.maven:maven-aether-provider:3.0.4@jar"
+
+		dependency 'org.apache.maven.wagon:wagon-file:2.4@jar'
+		dependency 'org.apache.maven.wagon:wagon-http:2.4@jar'
+		dependency 'org.apache.maven.wagon:wagon-provider-api:2.4@jar'
+		dependency 'org.apache.maven.wagon:wagon-http-shared4:2.4@jar'
+
+		//eather:
+		dependency "org.sonatype.aether:aether-api:1.13.1@jar"
+		dependency "org.sonatype.aether:aether-impl:1.13.1@jar"
+		dependency "org.sonatype.aether:aether-spi:1.13.1@jar"
+		dependency "org.sonatype.aether:aether-util:1.13.1@jar"
+		dependency 'org.sonatype.aether:aether-connector-wagon:1.13.1@jar'
+	}
+	
 	testCompile	'junit:junit:4.12',
 				'org.hamcrest:hamcrest-all:1.3'
 }
@@ -16,6 +58,6 @@ sourceCompatibility = 1.6
 targetCompatibility = 1.6
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.4'
+    gradleVersion = '2.14'
     distributionUrl = "https://services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
 }
