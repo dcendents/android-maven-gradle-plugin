@@ -1,8 +1,8 @@
 
 plugins {
 	id "nu.studer.plugindev" version "1.0.4"
-	id "com.gradle.plugin-publish" version "0.9.1"
-	id "org.ysb33r.gradletest" version "0.5.4"
+	id "com.gradle.plugin-publish" version "0.9.4"
+	id "org.ysb33r.gradletest" version "0.5.5"
 }
 
 apply plugin: "nu.studer.plugindev"
@@ -70,7 +70,7 @@ dependencies {
 	
 	testCompile	'junit:junit:4.12',
 				'org.hamcrest:hamcrest-all:1.3'
-	gradleTest 'com.android.tools.build:gradle:1.5.0'
+	gradleTest 'com.android.tools.build:gradle:2.1.2'
 }
 
 sourceCompatibility = 1.6
@@ -139,7 +139,7 @@ pluginBundle {
 }
 
 ext {
-	gradleVersions = '2.4,2.5,2.6,2.7,2.8,2.9,2.10,2.11,2.12,2.13'
+	gradleVersions = '2.14'
 }
 
 task integTest(type: Test) {
@@ -170,7 +170,7 @@ integTest.dependsOn gradleTest
 check.dependsOn integTest
 
 jacoco {
-	toolVersion = "0.7.5.201505241946"
+	toolVersion = "0.7.7.201606060606"
 }
 
 jacocoTestReport {
