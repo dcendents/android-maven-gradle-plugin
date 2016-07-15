@@ -1,6 +1,7 @@
 language: android
 android:
   components:
+    - tools
     - build-tools-24.0.0
     - android-24
   licenses:
