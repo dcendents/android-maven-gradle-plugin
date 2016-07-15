@@ -7,6 +7,7 @@ plugins {
 
 apply plugin: "nu.studer.plugindev"
 apply plugin: "jacoco"
+apply plugin: "maven"
 
 repositories {
 	mavenCentral()
@@ -28,7 +29,7 @@ configurations {
 dependencies {
 	
 	// from gradle/gradle/dependencies.gradle
-	compile dependencies.module("org.apache.maven:maven-core:3.0.4") {
+	compileOnly dependencies.module("org.apache.maven:maven-core:3.0.4") {
 		dependency "org.apache.maven:maven-settings:3.0.4@jar"
 		dependency "org.apache.maven:maven-settings-builder:3.0.4@jar"
 
