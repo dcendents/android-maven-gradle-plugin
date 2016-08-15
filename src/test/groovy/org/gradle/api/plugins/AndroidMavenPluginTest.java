@@ -21,9 +21,11 @@ import org.gradle.api.artifacts.maven.Conf2ScopeMapping;
 import org.gradle.api.artifacts.maven.Conf2ScopeMappingContainer;
 import org.gradle.api.artifacts.maven.MavenResolver;
 import org.gradle.api.internal.plugins.DslObject;
-import org.gradle.api.Project;
+import org.gradle.api.internal.project.ProjectInternal;
 import org.gradle.api.tasks.Upload;
-import org.gradle.testfixtures.ProjectBuilder;
+import org.gradle.test.fixtures.file.TestNameTestDirectoryProvider;
+import org.gradle.util.TestUtil;
+import org.junit.Rule;
 
 import java.io.File;
 import java.util.Set;
@@ -34,7 +36,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 public class AndroidMavenPluginTest {
-    private final Project project = ProjectBuilder.builder().build();
+    @Rule
+    public TestNameTestDirectoryProvider temporaryFolder = TestNameTestDirectoryProvider.newInstance();
+
+    private final ProjectInternal project = TestUtil.create(temporaryFolder).rootProject();
+
 
     @org.junit.Test
     public void addsConventionToProject() {
@@ -42,7 +48,7 @@ public class AndroidMavenPluginTest {
 
         assertThat(project.getConvention().getPlugin(MavenPluginConvention.class), notNullValue());
     }
-    
+
     @org.junit.Test
     public void defaultConventionValues() {
         project.getPluginManager().apply(AndroidMavenPlugin.class);
@@ -67,7 +73,7 @@ public class AndroidMavenPluginTest {
         assertThat(dependencies, equalTo((Set) toSet(project.getTasks().getByName(WarPlugin.WAR_TASK_NAME))));
     }
 
-    private void assertHasConfigurationAndMapping(Project project, String configurationName, String scope, int priority) {
+    private void assertHasConfigurationAndMapping(ProjectInternal project, String configurationName, String scope, int priority) {
         Conf2ScopeMappingContainer scopeMappingContainer = project.getConvention().getPlugin(MavenPluginConvention.class).getConf2ScopeMappings();
         ConfigurationContainer configurationContainer = project.getConfigurations();
         Conf2ScopeMapping mapping = scopeMappingContainer.getMappings().get(configurationContainer.getByName(configurationName));
