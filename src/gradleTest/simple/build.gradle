@@ -1,5 +1,7 @@
 
 buildscript {
+	System.properties['com.android.build.gradle.overrideVersionCheck'] = 'true'
+	
     dependencies {
         classpath 	fileTree(dir: "${project.rootProject.projectDir}/../../repo", include: '*.jar') 
     }
