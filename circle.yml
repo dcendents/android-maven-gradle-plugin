@@ -4,4 +4,4 @@ machine:
 
 test:
   post:
-    - cp -r android-maven-gradle-plugin/build/test-results/test/* $CIRCLE_TEST_REPORTS
+    - cp -r build/test-results/test/* $CIRCLE_TEST_REPORTS
