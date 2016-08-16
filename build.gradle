@@ -34,6 +34,19 @@ sourceSets {
 	}
 }
 
+// Write the plugin's classpath to a file to share with the tests
+task createClasspathManifest {
+    def outputDir = file("$buildDir/$name")
+
+    inputs.files sourceSets.main.runtimeClasspath
+    outputs.dir outputDir
+
+    doLast {
+        outputDir.mkdirs()
+        file("$outputDir/plugin-classpath.txt").text = sourceSets.main.runtimeClasspath.join("\n")
+    }
+}
+
 dependencies {
 	jacocoRuntime "org.jacoco:org.jacoco.agent:${jacoco.toolVersion}:runtime"
 	
@@ -80,6 +93,8 @@ dependencies {
 		dependency 'org.sonatype.aether:aether-connector-wagon:1.13.1@jar'
 	}
 	
+	testRuntime files(createClasspathManifest)
+
 	testCompile('org.spockframework:spock-core:1.0-groovy-2.4') {
         exclude module: 'groovy-all'
     }

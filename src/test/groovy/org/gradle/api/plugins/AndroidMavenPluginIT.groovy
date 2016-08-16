@@ -18,6 +18,7 @@ class AndroidMavenPluginIT extends Specification {
 	@Shared def buildDir = "${System.properties['buildDir']}"
 	
     @Rule final TemporaryFolder testProjectDir = new TemporaryFolder()
+	List<File> pluginClasspath
 	
 	File androidManifest
 	File settingsFile
@@ -32,6 +33,13 @@ class AndroidMavenPluginIT extends Specification {
         settingsFile = testProjectDir.newFile('settings.gradle')
 		gradlePropertiesFile = testProjectDir.newFile('gradle.properties')
         buildFile = testProjectDir.newFile('build.gradle')
+
+        def pluginClasspathResource = getClass().classLoader.findResource("plugin-classpath.txt")
+        if (pluginClasspathResource == null) {
+            throw new IllegalStateException("Did not find plugin classpath resource, run `testClasses` build task.")
+        }
+
+        pluginClasspath = pluginClasspathResource.readLines().collect { new File(it) }
     }
 
 	@Unroll
@@ -47,6 +55,11 @@ class AndroidMavenPluginIT extends Specification {
 		
 		gradlePropertiesFile << "org.gradle.jvmargs=-javaagent:${jacocoRuntime}=destfile=${buildDir}/jacoco/testKit-${gradleVersion}.exec"
 		
+        def classpathString = pluginClasspath
+            .collect { it.absolutePath.replace('\\', '/') }
+            .collect { "'$it'" }
+            .join(", ")
+
 		def uri = testProjectDir.root.toURI()
         buildFile << """
 			buildscript {
@@ -60,14 +73,12 @@ class AndroidMavenPluginIT extends Specification {
 
 				dependencies {
 					classpath "com.android.tools.build:gradle:${androidGradleBuildVersion}"
+					classpath files(${classpathString})
 				}
 			}
 			
-			plugins {
-				id "com.github.dcendents.android-maven"
-			}
-
 			apply plugin: 'com.android.library'
+			apply plugin: 'com.github.dcendents.android-maven'
 
 			group = 'org.test'
 			version = '1.0'
