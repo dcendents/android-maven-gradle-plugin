@@ -14,11 +14,14 @@ class AndroidMavenPluginIT extends Specification {
 	@Shared def androidGradleBuildVersion = "${System.properties['android.gradle.build.version']}"
 	@Shared def androidCompileSdkVersion = "${System.properties['android.compile.sdk.version']}"
 	@Shared def androidBuildToolsVersion = "${System.properties['android.build.tools.version']}"
+	@Shared def jacocoRuntime = "${System.properties['jacoco.runtime']}"
+	@Shared def buildDir = "${System.properties['buildDir']}"
 	
     @Rule final TemporaryFolder testProjectDir = new TemporaryFolder()
 	
 	File androidManifest
 	File settingsFile
+	File gradlePropertiesFile
     File buildFile
 	
     def setup() {
@@ -27,6 +30,7 @@ class AndroidMavenPluginIT extends Specification {
 		mainFolder.mkdirs()
 		androidManifest = new File(mainFolder, 'AndroidManifest.xml')
         settingsFile = testProjectDir.newFile('settings.gradle')
+		gradlePropertiesFile = testProjectDir.newFile('gradle.properties')
         buildFile = testProjectDir.newFile('build.gradle')
     }
 
@@ -40,6 +44,8 @@ class AndroidMavenPluginIT extends Specification {
 		"""
 		
 		settingsFile << "rootProject.name = 'simple'"
+		
+		gradlePropertiesFile << "org.gradle.jvmargs=-javaagent:${jacocoRuntime}=destfile=${buildDir}/jacoco/testKit-${gradleVersion}.exec"
 		
 		def uri = testProjectDir.root.toURI()
         buildFile << """

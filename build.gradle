@@ -15,6 +15,17 @@ repositories {
 	mavenLocal()
 }
 
+ext {
+	gradleVersions = '3.0'
+	androidGradleBuildVersion = '2.2.0-beta1'
+	androidCompileSdkVersion = 'android-24'
+	androidBuildToolsVersion = '24.0.0'
+}
+
+configurations {
+	jacocoRuntime
+}
+
 sourceSets {
 	test {
 		groovy {
@@ -23,21 +34,9 @@ sourceSets {
 	}
 }
 
-ext {
-	gradleVersions = '3.0'
-	androidGradleBuildVersion = '2.2.0-beta1'
-	androidCompileSdkVersion = 'android-24'
-	androidBuildToolsVersion = '24.0.0'
-}
-
-test {
-	systemProperty 'gradle.versions', gradleVersions
-	systemProperty 'android.gradle.build.version', androidGradleBuildVersion
-	systemProperty 'android.compile.sdk.version', androidCompileSdkVersion
-	systemProperty 'android.build.tools.version', androidBuildToolsVersion
-}
-
 dependencies {
+	jacocoRuntime "org.jacoco:org.jacoco.agent:${jacoco.toolVersion}:runtime"
+	
 	compile gradleApi()
 	
 	// from gradle/gradle/dependencies.gradle
@@ -112,6 +111,15 @@ dependencies {
 sourceCompatibility = 1.6
 targetCompatibility = 1.6
 
+test {
+	systemProperty 'gradle.versions', gradleVersions
+	systemProperty 'android.gradle.build.version', androidGradleBuildVersion
+	systemProperty 'android.compile.sdk.version', androidCompileSdkVersion
+	systemProperty 'android.build.tools.version', androidBuildToolsVersion
+	systemProperty 'jacoco.runtime', configurations.jacocoRuntime.asPath.replace('\\', '/')
+	systemProperty 'buildDir', "$buildDir".replace('\\', '/')
+}
+
 plugindev {
 	pluginId = 'com.github.dcendents.android-maven'
 	pluginImplementationClass 'org.gradle.api.plugins.AndroidMavenPlugin'
@@ -179,6 +187,10 @@ jacoco {
 }
 
 jacocoTestReport {
+	def coverageFiles = fileTree("${buildDir}/jacoco").include('*.exec')
+	coverageFiles.each { file ->
+      executionData file
+	} 
 	reports {
 		xml.enabled true
 		html.enabled true
