@@ -133,6 +133,15 @@ test {
 	systemProperty 'android.build.tools.version', androidBuildToolsVersion
 	systemProperty 'jacoco.runtime', configurations.jacocoRuntime.asPath.replace('\\', '/')
 	systemProperty 'buildDir', "$buildDir".replace('\\', '/')
+	
+	doLast {
+		def coverageFiles = fileTree("${buildDir}/jacoco").include('*.exec')
+		coverageFiles.each { file ->
+			jacocoTestReport {
+				executionData file
+			}
+		} 
+	}
 }
 
 plugindev {
@@ -202,10 +211,6 @@ jacoco {
 }
 
 jacocoTestReport {
-	def coverageFiles = fileTree("${buildDir}/jacoco").include('*.exec')
-	coverageFiles.each { file ->
-      executionData file
-	} 
 	reports {
 		xml.enabled true
 		html.enabled true
