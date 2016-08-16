@@ -2,10 +2,10 @@
 plugins {
 	id "nu.studer.plugindev" version "1.0.4"
 	id "com.gradle.plugin-publish" version "0.9.4"
-	id "org.ysb33r.gradletest" version "0.5.5"
 }
 
-apply plugin: 'groovy'
+apply plugin: "groovy"
+apply plugin: "java-gradle-plugin"
 apply plugin: "nu.studer.plugindev"
 apply plugin: "jacoco"
 apply plugin: "maven"
@@ -21,16 +21,20 @@ sourceSets {
 			srcDirs = ['src/test/groovy', 'src/test/core/src/testFixtures/groovy', 'src/test/internal-testing/src/main/groovy' ]
 		}
 	}
-
-	integTest {
-		compileClasspath += main.output + test.output
-		runtimeClasspath += main.output + test.output
-	}
 }
 
-configurations {
-	integTestCompile.extendsFrom testCompile
-	integTestRuntime.extendsFrom testRuntime
+ext {
+	gradleVersions = '3.0'
+	androidGradleBuildVersion = '2.2.0-beta1'
+	androidCompileSdkVersion = 'android-24'
+	androidBuildToolsVersion = '24.0.0'
+}
+
+test {
+	systemProperty 'gradle.versions', gradleVersions
+	systemProperty 'android.gradle.build.version', androidGradleBuildVersion
+	systemProperty 'android.compile.sdk.version', androidCompileSdkVersion
+	systemProperty 'android.build.tools.version', androidBuildToolsVersion
 }
 
 dependencies {
@@ -77,15 +81,17 @@ dependencies {
 		dependency 'org.sonatype.aether:aether-connector-wagon:1.13.1@jar'
 	}
 	
-	gradleTest 'com.android.tools.build:gradle:2.2.0-beta1'
-	
+	testCompile('org.spockframework:spock-core:1.0-groovy-2.4') {
+        exclude module: 'groovy-all'
+    }
+
 	testCompile	'junit:junit:4.12',
 				'org.hamcrest:hamcrest-all:1.3',
-				// from gradle/subprojects/core/core.gradle, gradle/subprojects/internal-testing/internal-testing.gradle and gradle/gradle/dependencies.gradle
-				'commons-io:commons-io:2.2',
+				'org.codehaus.groovy:groovy-all:2.4.7'
+				
+	// from gradle/subprojects/core/core.gradle, gradle/subprojects/internal-testing/internal-testing.gradle and gradle/gradle/dependencies.gradle
+	testCompile	'commons-io:commons-io:2.2',
 				'commons-lang:commons-lang:2.6@jar',
-				'org.spockframework:spock-core:1.0-groovy-2.4@jar',
-				"org.codehaus.groovy:groovy-all:2.4.7",
 				'org.objenesis:objenesis:1.2@jar',
 				'cglib:cglib-nodep:2.2.2',
 				'org.jmock:jmock:2.5.1',
@@ -95,11 +101,9 @@ dependencies {
 				'org.jsoup:jsoup:1.6.3',
 				'com.google.code.findbugs:jsr305:1.3.9@jar',
 				'org.ow2.asm:asm-all:5.1'
-
 	testCompile dependencies.module('org.apache.ivy:ivy:2.2.0'){
 		dependency "com.jcraft:jsch:0.1.53"
 	}
-	
 	testCompile dependencies.module('org.apache.ant:ant:1.9.6') {
 		dependency 'org.apache.ant:ant-launcher:1.9.6@jar'
 	}
@@ -169,37 +173,6 @@ pluginBundle {
 		version = version
 	}
 }
-
-ext {
-	gradleVersions = '3.0'
-}
-
-task integTest(type: Test) {
-	systemProperty 'gradle.versions', gradleVersions
-	testClassesDir = sourceSets.integTest.output.classesDir
-	classpath = sourceSets.integTest.runtimeClasspath
-	reports {
-		junitXml.destination = "$buildDir/integration-test-results"
-		reports.html.destination = "$buildDir/reports/integrationTests"
-	}
-}
-
-gradleTest {
-	versions gradleVersions.split(',')
-}
-
-gradleLocations {
-	searchGradleUserHome = true
-	includeGradleHome = false
-	searchGvm = false
-	download = true
-	downloadToGradleUserHome = true
-	useGradleSite = true
-}
-
-gradleTest.dependsOn jar
-integTest.dependsOn gradleTest
-check.dependsOn integTest
 
 jacoco {
 	toolVersion = "0.7.7.201606060606"
