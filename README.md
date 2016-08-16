@@ -1,7 +1,7 @@
 [![GitHub license](https://img.shields.io/github/license/dcendents/android-maven-gradle-plugin.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
-[![Build Status](https://travis-ci.org/dcendents/android-maven-gradle-plugin.svg?branch=master)](https://travis-ci.org/dcendents/android-maven-gradle-plugin) 
+[![Build Status](https://travis-ci.org/dcendents/android-maven-gradle-plugin.svg?branch=develop)](https://travis-ci.org/dcendents/android-maven-gradle-plugin) 
 [![Stories in Ready](https://badge.waffle.io/dcendents/android-maven-gradle-plugin.png?label=ready&title=Ready)](https://waffle.io/dcendents/android-maven-gradle-plugin) 
-[![codecov.io](http://codecov.io/github/dcendents/android-maven-gradle-plugin/coverage.svg?branch=master)](http://codecov.io/github/dcendents/android-maven-gradle-plugin?branch=master)
+[![codecov.io](http://codecov.io/github/dcendents/android-maven-gradle-plugin/coverage.svg?branch=develop)](http://codecov.io/github/dcendents/android-maven-gradle-plugin?branch=develop)
 [![Maven Central](https://img.shields.io/maven-central/v/com.github.dcendents/android-maven-gradle-plugin.svg)](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22android-maven-gradle-plugin%22)
 
 Gradle Android Maven plugin
@@ -83,9 +83,9 @@ The following table shows the compatibility between the android-maven-gradle-plu
 Build Metrics
 ====================
 
-[![Build Status](https://travis-ci.org/dcendents/android-maven-gradle-plugin.svg?branch=master)](https://travis-ci.org/dcendents/android-maven-gradle-plugin) 
-[![codecov.io](http://codecov.io/github/dcendents/android-maven-gradle-plugin/coverage.svg?branch=master)](http://codecov.io/github/dcendents/android-maven-gradle-plugin?branch=master)
-[![Dependency Status](https://www.versioneye.com/user/projects/55b59b5c6537620017000023/badge.svg?style=flat)](https://www.versioneye.com/user/projects/55b59b5c6537620017000023)![codecov.io](http://codecov.io/github/dcendents/android-maven-gradle-plugin/branch.svg?branch=master)
+[![Build Status](https://travis-ci.org/dcendents/android-maven-gradle-plugin.svg?branch=develop)](https://travis-ci.org/dcendents/android-maven-gradle-plugin) 
+[![codecov.io](http://codecov.io/github/dcendents/android-maven-gradle-plugin/coverage.svg?branch=develop)](http://codecov.io/github/dcendents/android-maven-gradle-plugin?branch=develop)
+[![Dependency Status](https://www.versioneye.com/user/projects/55b59b5c6537620017000023/badge.svg?style=flat)](https://www.versioneye.com/user/projects/55b59b5c6537620017000023)![codecov.io](http://codecov.io/github/dcendents/android-maven-gradle-plugin/branch.svg?branch=develop)
 [![Throughput Graph](https://graphs.waffle.io/dcendents/android-maven-gradle-plugin/throughput.svg)](https://waffle.io/dcendents/android-maven-gradle-plugin/metrics)
 
 License
