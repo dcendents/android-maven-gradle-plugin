@@ -227,7 +227,7 @@ task wrapper(type: Wrapper) {
     distributionUrl = "https://services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
 }
 
-if (System.env.TRAVIS == 'true') {
+if (System.env.TRAVIS == 'true' || System.env.CIRCLECI == 'true') {
 	allprojects {
 		tasks.withType(GroovyCompile) {
 			groovyOptions.fork = false
