@@ -2,7 +2,7 @@ machine:
   java:
     version: oraclejdk8
   environment:
-    GRADLE_OPTS: -Xms128m
+    GRADLE_OPTS: '-Xms128m -Xmx512m -Dorg.gradle.jvmargs="-Xms128m -Xmx512m -XX:+HeapDumpOnOutOfMemoryError"'
 
 dependencies:
   pre:
