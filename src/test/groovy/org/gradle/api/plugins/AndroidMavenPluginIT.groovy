@@ -108,6 +108,7 @@ class AndroidMavenPluginIT extends Specification {
             .withProjectDir(testProjectDir.root)
             .withArguments('install')
 			.withPluginClasspath()
+			.forwardOutput()
             .build()
 
         then:
