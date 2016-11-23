@@ -1,11 +1,11 @@
 #!/usr/bin/env groovy
 
 node {
-	stage 'fetch code' {
+	stage('fetch code') {
 		checkout scm
 	}
 	
-	stage 'build' {
+	stage('build') {
 		wrap([$class: 'TimestamperBuildWrapper']) {
 			wrap([$class: 'AnsiColorBuildWrapper']) {
 				env.JAVA_HOME="${tool 'jdk-8-latest'}"
@@ -16,7 +16,7 @@ node {
 		}
 	}
 
-	stage 'results' {
+	stage('results') {
 		junit 'build/test-results/**/*.xml'
 		step([$class: 'JacocoPublisher', classPattern: 'build/classes/main', execPattern: 'build/**/**.exec'])
 	}
