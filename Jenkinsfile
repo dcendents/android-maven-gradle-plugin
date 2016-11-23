@@ -1,6 +1,10 @@
+#!/usr/bin/env groovy
 
-stage 'build'
 node {
+	stage 'fetch code'
+	checkout scm
+	
+	stage 'build'
     wrap([$class: 'TimestamperBuildWrapper']) {
         wrap([$class: 'AnsiColorBuildWrapper']) {
             env.JAVA_HOME="${tool 'jdk-8-latest'}"
@@ -9,10 +13,8 @@ node {
             sh './gradlew clean build --info --stacktrace --no-daemon'
         }
     }
-}
 
-stage 'results'
-node {
+	stage 'results'
     junit 'build/test-results/**/*.xml'
     step([$class: 'JacocoPublisher', classPattern: 'build/classes/main', execPattern: 'build/**/**.exec'])
 }
