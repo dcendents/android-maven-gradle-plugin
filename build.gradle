@@ -16,7 +16,7 @@ repositories {
 }
 
 ext {
-	gradleVersions = '3.0,3.1,3.2,3.2.1,3.3'
+	gradleVersions = '4.0'
 	androidGradleBuildVersion = '2.2.0-beta1'
 	androidCompileSdkVersion = 'android-24'
 	androidBuildToolsVersion = '24.0.0'
@@ -101,7 +101,7 @@ dependencies {
 
 	testCompile	'junit:junit:4.12',
 				'org.hamcrest:hamcrest-all:1.3',
-				'org.codehaus.groovy:groovy-all:2.4.7'
+				'org.codehaus.groovy:groovy-all:2.4.11'
 				
 	// from gradle/subprojects/core/core.gradle, gradle/subprojects/internal-testing/internal-testing.gradle and gradle/gradle/dependencies.gradle
 	testCompile	'commons-io:commons-io:2.2',
@@ -214,7 +214,7 @@ jacocoTestReport {
 	reports {
 		xml.enabled true
 		html.enabled true
-		html.destination "${buildDir}/jacocoHtml"
+		html.destination file("${buildDir}/jacocoHtml")
 	}
 }
 
@@ -223,7 +223,7 @@ jacocoTestReport.dependsOn test
 check.dependsOn jacocoTestReport
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '3.3'
+    gradleVersion = '4.0'
     distributionUrl = "https://services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
 }
 
