@@ -1,1 +1,27 @@
-language: java
+language: android
+android:
+  components:
+    - tools
+    - build-tools-24.0.0
+    - android-24
+  licenses:
+    - 'android.*'
+
+jdk:
+  - oraclejdk8
+
+script: ./gradlew clean build --info --stacktrace
+
+sudo: false
+
+env:
+  global:
+    - GRADLE_OPTS="-Xms128m"
+
+cache:
+  directories:
+  - $HOME/.gradle
+  - $HOME/.m2
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)

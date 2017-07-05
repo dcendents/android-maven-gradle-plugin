@@ -1,0 +1,13 @@
+machine:
+  java:
+    version: oraclejdk8
+  environment:
+    GRADLE_OPTS: '-Xms128m -Xmx512m -Dorg.gradle.jvmargs="-Xms128m -Xmx512m -XX:+HeapDumpOnOutOfMemoryError"'
+
+dependencies:
+  pre:
+    - echo y | android update sdk --no-ui --all --filter "tools,android-24,build-tools-24.0.0,platform-tools,extra-android-m2repository,extra-google-m2repository"
+
+test:
+  post:
+    - cp -r build/test-results/test/* $CIRCLE_TEST_REPORTS
