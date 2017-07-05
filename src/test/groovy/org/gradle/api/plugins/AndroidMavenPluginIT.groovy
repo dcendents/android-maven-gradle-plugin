@@ -69,6 +69,9 @@ class AndroidMavenPluginIT extends Specification {
 					jcenter()
 					mavenCentral()
 					mavenLocal()
+					maven {
+						url 'https://maven.google.com'
+					}
 				}
 
 				dependencies {
