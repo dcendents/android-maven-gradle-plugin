@@ -86,6 +86,10 @@ class AndroidMavenPluginIT extends Specification {
 			group = 'org.test'
 			version = '1.0'
 			
+			repositories {
+				mavenCentral()
+			}
+
 			install {
 				repositories {
 					// Should be mavenInstaller but cannot find how to override the location
@@ -98,6 +102,12 @@ class AndroidMavenPluginIT extends Specification {
 			android {
 				compileSdkVersion "${androidCompileSdkVersion}"
 				buildToolsVersion "${androidBuildToolsVersion}"
+			}
+			
+			dependencies {
+				compile 'commons-io:commons-io:2.2'
+				
+				testCompile	'junit:junit:4.12'
 			}
 
 			task runGradleTest {
@@ -115,13 +125,108 @@ class AndroidMavenPluginIT extends Specification {
 
         then:
         result.task(":install").outcome == SUCCESS
-		validateRepo(gradleVersion);
+		File pom = validateRepo(gradleVersion);
+		validateDependencyScope(pom, 'commons-io', 'commons-io', '2.2', 'compile');
+		validateDependencyScope(pom, 'junit', 'junit', '4.12', 'test');
+		
+        where:
+        gradleVersion << gradleVersions
+    }
+
+	@Unroll
+    def "api and implementation is resolved with gradle #gradleVersion"() {
+        given:
+		androidManifest << """<?xml version="1.0" encoding="utf-8"?>
+			<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="org.test.simple" android:versionCode="1" android:versionName="1.0" >
+				<application />
+			</manifest>
+		"""
+		
+		settingsFile << "rootProject.name = 'simple'"
+		
+		gradlePropertiesFile << "org.gradle.jvmargs=-javaagent:${jacocoRuntime}=destfile=${buildDir}/jacoco/testKit-${gradleVersion}.exec"
+		
+        def classpathString = pluginClasspath
+            .collect { it.absolutePath.replace('\\', '/') }
+            .collect { "'$it'" }
+            .join(", ")
+
+		def uri = testProjectDir.root.toURI()
+        buildFile << """
+			buildscript {
+				System.properties['com.android.build.gradle.overrideVersionCheck'] = 'true'
+				
+				repositories {
+					jcenter()
+					mavenCentral()
+					mavenLocal()
+					maven {
+						url 'https://maven.google.com'
+					}
+				}
+
+				dependencies {
+					classpath "com.android.tools.build:gradle:${androidGradleBuildVersion}"
+					classpath files(${classpathString})
+				}
+			}
+			
+			apply plugin: 'com.android.library'
+			apply plugin: 'com.github.dcendents.android-maven'
+
+			group = 'org.test'
+			version = '1.0'
+			
+			repositories {
+				mavenCentral()
+			}
+
+			install {
+				repositories {
+					// Should be mavenInstaller but cannot find how to override the location
+					mavenDeployer {
+						repository(url: "${uri}/${gradleVersion}/repo")
+					}
+				}
+			}
+
+			android {
+				compileSdkVersion "${androidCompileSdkVersion}"
+				buildToolsVersion "${androidBuildToolsVersion}"
+			}
+			
+			dependencies {
+				api 'commons-io:commons-io:2.2'
+				implementation 'org.codehaus.groovy:groovy-all:2.4.11'
+				
+				testCompile	'junit:junit:4.12'
+			}
+
+			task runGradleTest {
+				dependsOn install
+			}
+        """
+		
+        when:
+        def result = GradleRunner.create()
+			.withGradleVersion(gradleVersion)
+            .withProjectDir(testProjectDir.root)
+            .withArguments('install')
+			.withPluginClasspath()
+            .build()
+
+        then:
+        result.task(":install").outcome == SUCCESS
+		File pom = validateRepo(gradleVersion);
+		validateDependencyScope(pom, 'commons-io', 'commons-io', '2.2', 'compile');
+		validateDependencyScope(pom, 'org.codehaus.groovy', 'groovy-all', '2.4.11', 'runtime');
+		validateDependencyScope(pom, 'junit', 'junit', '4.12', 'test');
 		
         where:
         gradleVersion << gradleVersions
     }
 	
-	private void validateRepo(String version) {
+	private File validateRepo(String version) {
 		File repo = new File(testProjectDir.root, version + "/repo/org/test/simple")
 		assert repo.exists()
 		
@@ -145,5 +250,17 @@ class AndroidMavenPluginIT extends Specification {
 		assert pom.exists()
 		assert pomMd5.exists()
 		assert pomSha1.exists()
+		
+		//System.out.println(pom.text);
+		return pom;
+	}
+	
+	private void validateDependencyScope(File pom, String groupId, String artifactId, String version, String scope) {
+		def project = new XmlSlurper().parse(pom);
+		def dependencies = project.dependencies;
+		def dependency = dependencies.'*'.find { node->
+			node.groupId = groupId && node.artifactId == artifactId && node.version == version
+		}
+		assert dependency.scope == scope;
 	}
 }

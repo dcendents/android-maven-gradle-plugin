@@ -16,10 +16,10 @@ repositories {
 }
 
 ext {
-	androidGradleBuildVersion = '3.0.0-alpha1'
 	gradleVersions = '4.1'
+	androidGradleBuildVersion = '3.0.0-beta3'
 	androidCompileSdkVersion = 'android-26'
-	androidBuildToolsVersion = '26.0.0'
+	androidBuildToolsVersion = '26.0.1'
 }
 
 configurations {
