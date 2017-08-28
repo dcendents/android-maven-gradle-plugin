@@ -4,8 +4,6 @@ android:
     - tools
     - build-tools-26.0.0
     - android-26
-  licenses:
-    - 'android.*'
 
 jdk:
   - oraclejdk8
