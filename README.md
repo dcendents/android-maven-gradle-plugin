@@ -23,7 +23,7 @@ buildscript {
 	}
 
 	dependencies {
-		classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
+		classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
 	}
 }
 
@@ -35,7 +35,7 @@ Or use the new syntax since Gradle 2.1
 
 ```Groovy
 plugins {
-  id "com.github.dcendents.android-maven" version "1.5"
+  id "com.github.dcendents.android-maven" version "2.0"
 }
 ```
 
@@ -78,6 +78,7 @@ The following table shows the compatibility between the android-maven-gradle-plu
 | 1.3 | com.github.dcendents.android-maven | com.github.dcendents:android-maven-gradle-plugin:1.3 | 2.4+ |
 | 1.4.1 | com.github.dcendents.android-maven | com.github.dcendents:android-maven-gradle-plugin:1.4.1 | 2.14+ |
 | 1.5 | com.github.dcendents.android-maven | com.github.dcendents:android-maven-gradle-plugin:1.5 | 3.0+ |
+| 2.0 | com.github.dcendents.android-maven | com.github.dcendents:android-maven-gradle-plugin:2.0 | 4.1+ |
 
 
 Build Metrics
@@ -85,7 +86,6 @@ Build Metrics
 
 [![Build Status](https://travis-ci.org/dcendents/android-maven-gradle-plugin.svg?branch=develop)](https://travis-ci.org/dcendents/android-maven-gradle-plugin) 
 [![codecov.io](http://codecov.io/github/dcendents/android-maven-gradle-plugin/coverage.svg?branch=develop)](http://codecov.io/github/dcendents/android-maven-gradle-plugin?branch=develop)
-[![Dependency Status](https://www.versioneye.com/user/projects/55b59b5c6537620017000023/badge.svg?style=flat)](https://www.versioneye.com/user/projects/55b59b5c6537620017000023)![codecov.io](http://codecov.io/github/dcendents/android-maven-gradle-plugin/branch.svg?branch=develop)
 [![Throughput Graph](https://graphs.waffle.io/dcendents/android-maven-gradle-plugin/throughput.svg)](https://waffle.io/dcendents/android-maven-gradle-plugin/metrics)
 
 License
