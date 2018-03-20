@@ -15,6 +15,7 @@
  */
 package org.gradle.test.fixtures.file
 
+import com.google.common.io.ByteStreams
 import org.apache.commons.io.FileUtils
 import org.apache.commons.lang.StringUtils
 import org.apache.tools.ant.Project
@@ -184,12 +185,35 @@ class TestFileHelper {
 
     ExecOutput execute(List args, List env) {
         def process = ([file.absolutePath] + args).execute(env, null)
-        String output = process.inputStream.text
-        String error = process.errorStream.text
-        if (process.waitFor() != 0) {
-            throw new RuntimeException("Could not execute $file. Error: $error, Output: $output")
+
+        // Prevent process from hanging by consuming the output as we go.
+        def output = new ByteArrayOutputStream()
+        def error = new ByteArrayOutputStream()
+
+        Thread outputThread = Thread.start { ByteStreams.copy(process.in, output) }
+        Thread errorThread = Thread.start { ByteStreams.copy(process.err, error) }
+
+        int exitCode = process.waitFor()
+        outputThread.join()
+        errorThread.join()
+
+        return new ExecOutput(exitCode, output.toString(), error.toString())
+    }
+
+    ExecOutput executeSuccess(List args, List env) {
+        def result = execute(args, env)
+        if (result.exitCode != 0) {
+            throw new RuntimeException("Could not execute $file. Error: ${result.error}, Output: ${result.out}")
         }
-        return new ExecOutput(output, error)
+        return result
+    }
+
+    ExecOutput executeFailure(List args, List env) {
+        def result = execute(args, env)
+        if (result.exitCode == 0) {
+            throw new RuntimeException("Unexpected success, executing $file. Error: ${result.error}, Output: ${result.out}")
+        }
+        return result
     }
 
     public void zipTo(TestFile zipFile, boolean nativeTools, boolean readOnly) {
