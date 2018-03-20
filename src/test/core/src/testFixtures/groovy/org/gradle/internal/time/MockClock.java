@@ -14,21 +14,29 @@
  * limitations under the License.
  */
 
-package org.gradle.api.internal.cache;
+package org.gradle.internal.time;
 
-import org.gradle.api.internal.file.TestFiles;
-import org.gradle.internal.serialize.Serializer;
+public class MockClock implements Clock {
 
-import java.io.File;
+    long current;
 
-public class TestFileContentCacheFactory implements FileContentCacheFactory {
-    @Override
-    public <V> FileContentCache<V> newCache(String name, int normalizedCacheSize, final Calculator<? extends V> calculator, Serializer<V> serializer) {
-        return new FileContentCache<V>() {
-            @Override
-            public V get(File file) {
-                return calculator.calculate(file, TestFiles.fileSystem().stat(file).getType());
-            }
-        };
+    public MockClock() {
+        this(System.currentTimeMillis());
     }
+
+    public MockClock(long startTime) {
+        current = startTime;
+    }
+
+    public void increment(long diff) {
+        current += diff;
+    }
+
+    /** Increments the time by 10ms and returns it. */
+    @Override
+    public long getCurrentTime() {
+        current += 10L;
+        return current;
+    }
+
 }
