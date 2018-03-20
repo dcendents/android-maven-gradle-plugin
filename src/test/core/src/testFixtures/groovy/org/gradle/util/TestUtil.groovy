@@ -19,6 +19,7 @@ import org.codehaus.groovy.control.CompilerConfiguration
 import org.gradle.api.Task
 import org.gradle.api.internal.AsmBackedClassGenerator
 import org.gradle.api.internal.DefaultInstantiatorFactory
+import org.gradle.api.internal.ExperimentalFeatures
 import org.gradle.api.internal.InstantiatorFactory
 import org.gradle.api.internal.attributes.DefaultImmutableAttributesFactory
 import org.gradle.api.internal.attributes.ImmutableAttributesFactory
@@ -27,7 +28,9 @@ import org.gradle.api.internal.model.DefaultObjectFactory
 import org.gradle.api.internal.model.NamedObjectInstantiator
 import org.gradle.api.internal.project.ProjectInternal
 import org.gradle.api.internal.project.taskfactory.ITaskFactory
+import org.gradle.api.internal.provider.DefaultProviderFactory
 import org.gradle.api.model.ObjectFactory
+import org.gradle.api.provider.ProviderFactory
 import org.gradle.cache.internal.CrossBuildInMemoryCacheFactory
 import org.gradle.groovy.scripts.DefaultScript
 import org.gradle.groovy.scripts.Script
@@ -35,6 +38,7 @@ import org.gradle.groovy.scripts.ScriptSource
 import org.gradle.internal.classloader.ClassLoaderHierarchyHasher
 import org.gradle.internal.event.DefaultListenerManager
 import org.gradle.internal.hash.HashCode
+import org.gradle.internal.service.DefaultServiceRegistry
 import org.gradle.test.fixtures.file.TestDirectoryProvider
 import org.gradle.testfixtures.ProjectBuilder
 import org.gradle.testfixtures.internal.NativeServicesTestFixture
@@ -57,7 +61,9 @@ class TestUtil {
     }
 
     static ObjectFactory objectFactory() {
-        return new DefaultObjectFactory(instantiatorFactory().decorate(), NamedObjectInstantiator.INSTANCE)
+        DefaultServiceRegistry services = new DefaultServiceRegistry()
+        services.add(ProviderFactory, new DefaultProviderFactory())
+        return new DefaultObjectFactory(instantiatorFactory().injectAndDecorate(services), NamedObjectInstantiator.INSTANCE)
     }
 
     static ValueSnapshotter valueSnapshotter() {
@@ -71,6 +77,14 @@ class TestUtil {
 
     static ImmutableAttributesFactory attributesFactory() {
         return new DefaultImmutableAttributesFactory(valueSnapshotter())
+    }
+
+    static NamedObjectInstantiator objectInstantiator() {
+        return NamedObjectInstantiator.INSTANCE
+    }
+
+    static ExperimentalFeatures experimentalFeatures() {
+        return new ExperimentalFeatures()
     }
 
     static TestUtil create(File rootDir) {

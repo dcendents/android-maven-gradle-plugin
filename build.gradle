@@ -16,7 +16,7 @@ repositories {
 }
 
 ext {
-	gradleVersions = '4.4'
+	gradleVersions = '4.5'
 	androidGradleBuildVersion = '3.0.0-beta3'
 	androidCompileSdkVersion = 'android-26'
 	androidBuildToolsVersion = '26.0.1'
@@ -51,9 +51,10 @@ ext {
     versions = [:]
 }
 
-versions.maven = "3.0.4"
+versions.commons_io = '2.2'
 versions.groovy = "2.4.12"
-versions.ant = "1.9.9"
+versions.maven = "3.0.4"
+versions.findbugs = "2.0.1"
 
 dependencies {
 	jacocoRuntime "org.jacoco:org.jacoco.agent:${jacoco.toolVersion}:runtime"
@@ -61,49 +62,11 @@ dependencies {
 	compile gradleApi()
 	
 	// from gradle/gradle/dependencies.gradle
-	compileOnly dependencies.module("org.apache.maven:maven-core:${versions.maven}") {
-		dependency "org.apache.maven:maven-settings:${versions.maven}@jar"
-		dependency "org.apache.maven:maven-settings-builder:${versions.maven}@jar"
-
-		//plexus:
-		dependency "org.codehaus.plexus:plexus-utils:2.1@jar"
-		dependency "org.codehaus.plexus:plexus-interpolation:1.14@jar"
-		dependency "org.codehaus.plexus:plexus-component-annotations:1.5.5@jar"
-		dependency "org.codehaus.plexus:plexus-container-default:1.5.5@jar"
-		dependency "org.codehaus.plexus:plexus-classworlds:2.4@jar"
-
-		//sonatype plexus
-		dependency "org.sonatype.plexus:plexus-cipher:1.7@jar"
-		dependency "org.sonatype.plexus:plexus-sec-dispatcher:1.3@jar"
-
-		//core:
-		dependency "org.apache.maven:maven-core:${versions.maven}@jar"
-		dependency "org.apache.maven:maven-compat:${versions.maven}@jar"
-		dependency "org.apache.maven:maven-model-builder:${versions.maven}@jar"
-		dependency "org.apache.maven:maven-model:${versions.maven}@jar"
-
-		//somewhat core:
-		dependency "org.apache.maven:maven-artifact:${versions.maven}@jar"
-		dependency "org.apache.maven:maven-repository-metadata:${versions.maven}@jar"
-		dependency "org.apache.maven:maven-plugin-api:${versions.maven}@jar"
-		dependency "org.apache.maven:maven-aether-provider:${versions.maven}@jar"
-
-		dependency 'org.apache.maven.wagon:wagon-file:2.4@jar'
-		dependency 'org.apache.maven.wagon:wagon-http:2.4@jar'
-		dependency 'org.apache.maven.wagon:wagon-provider-api:2.4@jar'
-		dependency 'org.apache.maven.wagon:wagon-http-shared4:2.4@jar'
-
-		//eather:
-		dependency "org.sonatype.aether:aether-api:1.13.1@jar"
-		dependency "org.sonatype.aether:aether-impl:1.13.1@jar"
-		dependency "org.sonatype.aether:aether-spi:1.13.1@jar"
-		dependency "org.sonatype.aether:aether-util:1.13.1@jar"
-		dependency 'org.sonatype.aether:aether-connector-wagon:1.13.1@jar'
-	}
+	compileOnly "org.apache.maven:maven-core:${versions.maven}"
 	
 	testRuntime files(createClasspathManifest)
 
-	testCompile('org.spockframework:spock-core:1.0-groovy-2.4@jar') {
+	testCompile('org.spockframework:spock-core:1.0-groovy-2.4') {
         exclude module: 'groovy-all'
     }
 
@@ -112,23 +75,19 @@ dependencies {
 				"org.codehaus.groovy:groovy-all:${versions.groovy}"
 				
 	// from gradle/subprojects/core/core.gradle, gradle/subprojects/internal-testing/internal-testing.gradle and gradle/gradle/dependencies.gradle
-	testCompile	'commons-io:commons-io:2.2',
-				'commons-lang:commons-lang:2.6@jar',
-				'org.objenesis:objenesis:1.2@jar',
+	testCompile	"commons-io:commons-io:${versions.commons_io}",
+				'commons-lang:commons-lang:2.6',
+				'org.objenesis:objenesis:1.2',
 				'cglib:cglib:3.2.5',
 				'org.jmock:jmock:2.5.1',
 				dependencies.create('org.jmock:jmock-junit4:2.5.1') { exclude group: 'junit', module: 'junit-dep' }, //junit-dep pulls old definitions of core junit types.
 				'org.jmock:jmock-legacy:2.5.1',
-				'com.google.guava:guava-jdk5:17.0@jar',
+				'com.google.guava:guava-jdk5:17.0',
 				'org.jsoup:jsoup:1.6.3',
-				'com.google.code.findbugs:jsr305:2.0.1',
-				'org.ow2.asm:asm-debug-all:6.0_ALPHA'
-	testCompile dependencies.module('org.apache.ivy:ivy:2.2.0'){
-		dependency "com.jcraft:jsch:0.1.54"
-	}
-	testCompile dependencies.module("org.apache.ant:ant:${versions.ant}") {
-		dependency "org.apache.ant:ant-launcher:${versions.ant}@jar"
-	}
+				"com.google.code.findbugs:findbugs:${versions.findbugs}",
+				'org.ow2.asm:asm:6.0'
+	testCompile 'org.apache.ivy:ivy:2.2.0'
+	testCompile 'org.apache.ant:ant:1.9.9'
 }
 
 sourceCompatibility = 1.6
@@ -231,7 +190,7 @@ jacocoTestReport.dependsOn test
 check.dependsOn jacocoTestReport
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '4.4'
+    gradleVersion = '4.5'
     distributionUrl = "https://services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
 }
 
