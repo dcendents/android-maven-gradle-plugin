@@ -16,7 +16,7 @@ repositories {
 }
 
 ext {
-	gradleVersions = '4.1,4.2,4.2.1,4.3'
+	gradleVersions = '4.1,4.2,4.2.1,4.3,4.3.1,4.4,4.4.1'
 	androidGradleBuildVersion = '3.0.0-beta3'
 	androidCompileSdkVersion = 'android-26'
 	androidBuildToolsVersion = '26.0.1'
@@ -53,6 +53,7 @@ ext {
 
 versions.maven = "3.0.4"
 versions.groovy = "2.4.12"
+versions.ant = "1.9.9"
 
 dependencies {
 	jacocoRuntime "org.jacoco:org.jacoco.agent:${jacoco.toolVersion}:runtime"
@@ -65,7 +66,7 @@ dependencies {
 		dependency "org.apache.maven:maven-settings-builder:${versions.maven}@jar"
 
 		//plexus:
-		dependency "org.codehaus.plexus:plexus-utils:2.0.6@jar"
+		dependency "org.codehaus.plexus:plexus-utils:2.1@jar"
 		dependency "org.codehaus.plexus:plexus-interpolation:1.14@jar"
 		dependency "org.codehaus.plexus:plexus-component-annotations:1.5.5@jar"
 		dependency "org.codehaus.plexus:plexus-container-default:1.5.5@jar"
@@ -125,8 +126,8 @@ dependencies {
 	testCompile dependencies.module('org.apache.ivy:ivy:2.2.0'){
 		dependency "com.jcraft:jsch:0.1.54"
 	}
-	testCompile dependencies.module('org.apache.ant:ant:1.9.6') {
-		dependency 'org.apache.ant:ant-launcher:1.9.6@jar'
+	testCompile dependencies.module("org.apache.ant:ant:${versions.ant}") {
+		dependency "org.apache.ant:ant-launcher:${versions.ant}@jar"
 	}
 }
 
@@ -230,7 +231,7 @@ jacocoTestReport.dependsOn test
 check.dependsOn jacocoTestReport
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '4.3'
+    gradleVersion = '4.4'
     distributionUrl = "https://services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
 }
 
