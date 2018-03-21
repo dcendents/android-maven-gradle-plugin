@@ -16,7 +16,7 @@ repositories {
 }
 
 ext {
-	gradleVersions = '4.1'
+	gradleVersions = '4.1,4.2'
 	androidGradleBuildVersion = '3.0.0-beta3'
 	androidCompileSdkVersion = 'android-26'
 	androidBuildToolsVersion = '26.0.1'
@@ -229,7 +229,7 @@ jacocoTestReport.dependsOn test
 check.dependsOn jacocoTestReport
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '4.1'
+    gradleVersion = '4.2'
     distributionUrl = "https://services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
 }
 

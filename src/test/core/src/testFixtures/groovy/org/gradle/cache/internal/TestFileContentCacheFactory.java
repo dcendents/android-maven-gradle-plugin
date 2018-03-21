@@ -14,26 +14,21 @@
  * limitations under the License.
  */
 
-package org.gradle.testing.internal.util
+package org.gradle.cache.internal;
 
-final class RetryUtil {
-    private RetryUtil() {}
+import org.gradle.api.internal.file.TestFiles;
+import org.gradle.internal.serialize.Serializer;
 
-    static int retry(int retries = 3, int waitMsBetweenRetries = 0, Closure closure) {
-        int retryCount = 0
-        Throwable lastException = null
+import java.io.File;
 
-        while (retryCount++ < retries) {
-            try {
-                closure.call()
-                return retryCount
-            } catch (Throwable e) {
-                lastException = e
-                Thread.sleep(waitMsBetweenRetries)
+public class TestFileContentCacheFactory implements FileContentCacheFactory {
+    @Override
+    public <V> FileContentCache<V> newCache(String name, int normalizedCacheSize, final Calculator<? extends V> calculator, Serializer<V> serializer) {
+        return new FileContentCache<V>() {
+            @Override
+            public V get(File file) {
+                return calculator.calculate(file, TestFiles.fileSystem().stat(file).getType());
             }
-        }
-
-        // Retry count exceeded, throwing last exception
-        throw lastException
+        };
     }
 }
