@@ -19,7 +19,7 @@ import org.codehaus.groovy.control.CompilerConfiguration
 import org.gradle.api.Task
 import org.gradle.api.internal.AsmBackedClassGenerator
 import org.gradle.api.internal.DefaultInstantiatorFactory
-import org.gradle.api.internal.ExperimentalFeatures
+import org.gradle.api.internal.FeaturePreviews
 import org.gradle.api.internal.InstantiatorFactory
 import org.gradle.api.internal.attributes.DefaultImmutableAttributesFactory
 import org.gradle.api.internal.attributes.ImmutableAttributesFactory
@@ -44,6 +44,9 @@ import org.gradle.testfixtures.ProjectBuilder
 import org.gradle.testfixtures.internal.NativeServicesTestFixture
 
 import java.rmi.server.UID
+
+import static org.gradle.api.internal.FeaturePreviews.Feature.GRADLE_METADATA
+import static org.gradle.api.internal.FeaturePreviews.Feature.IMPROVED_POM_SUPPORT
 
 class TestUtil {
     public static final Closure TEST_CLOSURE = {}
@@ -76,15 +79,22 @@ class TestUtil {
     }
 
     static ImmutableAttributesFactory attributesFactory() {
-        return new DefaultImmutableAttributesFactory(valueSnapshotter())
+        return new DefaultImmutableAttributesFactory(valueSnapshotter(), NamedObjectInstantiator.INSTANCE)
     }
 
     static NamedObjectInstantiator objectInstantiator() {
         return NamedObjectInstantiator.INSTANCE
     }
 
-    static ExperimentalFeatures experimentalFeatures() {
-        return new ExperimentalFeatures()
+    static FeaturePreviews featurePreviews(boolean improvedPomSupportEnabled = false, boolean gradleMetadataEnabled = false) {
+        def previews = new FeaturePreviews()
+        if (improvedPomSupportEnabled) {
+            previews.enableFeature(IMPROVED_POM_SUPPORT)
+        }
+        if (gradleMetadataEnabled) {
+            previews.enableFeature(GRADLE_METADATA)
+        }
+        return previews
     }
 
     static TestUtil create(File rootDir) {
