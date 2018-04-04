@@ -23,7 +23,7 @@ buildscript {
 	}
 
 	dependencies {
-		classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
+		classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
 	}
 }
 
@@ -35,7 +35,7 @@ Or use the new syntax since Gradle 2.1
 
 ```Groovy
 plugins {
-  id "com.github.dcendents.android-maven" version "2.0"
+  id "com.github.dcendents.android-maven" version "2.1"
 }
 ```
 
@@ -79,6 +79,7 @@ The following table shows the compatibility between the android-maven-gradle-plu
 | 1.4.1 | com.github.dcendents.android-maven | com.github.dcendents:android-maven-gradle-plugin:1.4.1 | 2.14+ |
 | 1.5 | com.github.dcendents.android-maven | com.github.dcendents:android-maven-gradle-plugin:1.5 | 3.0+ |
 | 2.0 | com.github.dcendents.android-maven | com.github.dcendents:android-maven-gradle-plugin:2.0 | 4.1+ |
+| 2.1 | com.github.dcendents.android-maven | com.github.dcendents:android-maven-gradle-plugin:2.0 | 4.6+ |
 
 
 Build Metrics
