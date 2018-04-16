@@ -79,7 +79,7 @@ The following table shows the compatibility between the android-maven-gradle-plu
 | 1.4.1 | com.github.dcendents.android-maven | com.github.dcendents:android-maven-gradle-plugin:1.4.1 | 2.14+ |
 | 1.5 | com.github.dcendents.android-maven | com.github.dcendents:android-maven-gradle-plugin:1.5 | 3.0+ |
 | 2.0 | com.github.dcendents.android-maven | com.github.dcendents:android-maven-gradle-plugin:2.0 | 4.1+ |
-| 2.1 | com.github.dcendents.android-maven | com.github.dcendents:android-maven-gradle-plugin:2.0 | 4.6+ |
+| 2.1 | com.github.dcendents.android-maven | com.github.dcendents:android-maven-gradle-plugin:2.1 | 4.6+ |
 
 
 Build Metrics
