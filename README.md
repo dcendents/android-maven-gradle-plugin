@@ -1,6 +1,14 @@
+# Abandoned
+
+I've stopped doing android development yeard ago, and gradle making constant changes to their build system made supporting that plugin quite hard for me. 
+
+If you are using Kotlin 1.3.30+ and Gradle 5.x, please use https://github.com/sky-uk/gradle-maven-plugin instead.
+
+
+
+
 [![GitHub license](https://img.shields.io/github/license/dcendents/android-maven-gradle-plugin.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 [![Build Status](https://travis-ci.org/dcendents/android-maven-gradle-plugin.svg?branch=develop)](https://travis-ci.org/dcendents/android-maven-gradle-plugin) 
-[![Stories in Ready](https://badge.waffle.io/dcendents/android-maven-gradle-plugin.png?label=ready&title=Ready)](https://waffle.io/dcendents/android-maven-gradle-plugin) 
 [![codecov.io](http://codecov.io/github/dcendents/android-maven-gradle-plugin/coverage.svg?branch=develop)](http://codecov.io/github/dcendents/android-maven-gradle-plugin?branch=develop)
 [![Maven Central](https://img.shields.io/maven-central/v/com.github.dcendents/android-maven-gradle-plugin.svg)](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22android-maven-gradle-plugin%22)
 
@@ -87,7 +95,6 @@ Build Metrics
 
 [![Build Status](https://travis-ci.org/dcendents/android-maven-gradle-plugin.svg?branch=develop)](https://travis-ci.org/dcendents/android-maven-gradle-plugin) 
 [![codecov.io](http://codecov.io/github/dcendents/android-maven-gradle-plugin/coverage.svg?branch=develop)](http://codecov.io/github/dcendents/android-maven-gradle-plugin?branch=develop)
-[![Throughput Graph](https://graphs.waffle.io/dcendents/android-maven-gradle-plugin/throughput.svg)](https://waffle.io/dcendents/android-maven-gradle-plugin/metrics)
 
 License
 ====================
